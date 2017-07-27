@@ -1,10 +1,10 @@
 # Taro Ad Fields
 
-Contributors: Takahashi_Fumiki, tarosky  
+Contributors: tarosky, Takahashi_Fumiki, yocchi161  
 Tags: advertisement  
-Requires at least: 4.7.0
-Tested up to: 4.8.1
-Stable tag: 1.0.0
+Requires at least: 4.7.0  
+Tested up to: 4.8.0  
+Stable tag: 1.0.0  
 License: GPLv3 or later  
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -14,25 +14,33 @@ Advertise block manager for WordPress.
 
 You can create ad slot for you WordPress theme.
 In each position, the latest ad field will be displayed.
+You can manage your advertisement's schedule & display!
 
 ### From Theme
 
-Call action hook in your theme.
+Call action hook in your theme:
 
 <pre>
-<?php do_action( 'taro_ad_field', 'after-header', '<div class="after-header">', '</div>' ); ?>
+&lt;?php do_action( 'taro_ad_field', 'after-header', '&lt;div class="after-header"&gt;', '&lt;/div&gt;' ); ?&gt;
 </pre>
 
-#### Arguments
 
-1. Hook name.
-2. Postion slug. 
-3. String to be output just before ad block.
-4. String to be output just after ad block.
+
+In this place, the latest ad will be displayed.
+With [Taro Clockwork Post](https://wordpress.org/plugins/taro-clockwork-post/) plugin, you can let your ad be automatically expired.
+
+#### Hook Arguments
+
+`do_action( $hook_name, $slug, $before, $after );`
+
+1. **$hook_name**: The action hook name. Always should be `taro_ad_field`.
+2. **$slug**: Slug of postion.
+3. **$before**: String to be output just before ad block. If no ad exists, this won't be displayed.
+4. **$after**: String to be output just after ad block.
 
 ### From Widget
 
-We have widget for ad field. The latest ad of specified postion will be displayed.
+We also have widget for ad field. The latest ad of specified position will be displayed in the widget.
 
 ### Set Default Positions
 
@@ -57,25 +65,27 @@ add_filter( 'taf_default_positions', function() {
 
 ## Installation
 
-1. Upload the plugin files to the `/wp-content/plugins/tscf` directory, or install the plugin through the WordPress plugins screen directly.
-1. Activate the plugin through the 'Plugins' screen in WordPress
-1. If JSON doesn't exist, put it or create from `Appearance > Custom Fields Config`
-
+1. Upload the plugin files to the `/wp-content/plugins/taro-ad-fields` directory, or install the plugin through the WordPress plugins screen directly.
+2. Activate the plugin through the 'Plugins' screen in WordPress
+3. Go to `Ad Field > Position` and create positons. If you set default positions with filters, they will be automatically generated.
+4. Register ad posions. The published fields will be displayed.
 
 ## Frequently Asked Questions
 
-### A question that someone might have
+### How to Contribute
 
-An answer to that question.
+We host our code on [Github](https://github.com/tarosky/taro-ad-fields), so feel free to send PR or issues.
 
+### Is there any vulnerability?
+
+As far as we konw, **NO**. But nothing is perfect.
+This plugin allows you to save Javascript like Google Adsense code,
+so please be careful about who can edit your ad.
+You cam customize the capability for ad fields by hooking `taf_post_type_args` filter.
 
 ## Screenshots
 
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets 
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png` 
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+W.I.P
 
 ## Changelog
 

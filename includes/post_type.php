@@ -22,7 +22,7 @@ add_action( 'init', function () {
 		],
 		'public'          => false,
 		'show_ui'         => true,
-		'capability_type' => 'post',
+		'capability_type' => 'page',
 		'hierarchical'    => false,
 		'menu_position'   => 60,
 		'menu_icon'       => 'dashicons-megaphone',
@@ -180,6 +180,8 @@ add_action( 'ad-position_edit_form_fields', function ( $term ) {
 	<?php
 } );
 
+
+// Display help menu
 add_action( 'edit_form_after_title', function( $post ) {
 	if ( 'ad-content' != $post->post_type ) {
 		return;

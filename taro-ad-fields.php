@@ -16,6 +16,9 @@ add_action( 'plugins_loaded', '_taro_ad_field_init' );
 
 /**
  * Bootstrap
+ *
+ * @package taf
+ * @access private
  */
 function _taro_ad_field_init() {
 	load_plugin_textdomain( 'taf', false, basename( dirname( __FILE__ ) ) . '/languages' );
