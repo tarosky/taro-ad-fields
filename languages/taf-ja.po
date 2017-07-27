@@ -1,14 +1,16 @@
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=1; plural=0;\n"
 "Project-Id-Version: Taro Ad Fields\n"
-"POT-Creation-Date: 2017-07-06 19:00+0900\n"
-"PO-Revision-Date: 2017-07-06 19:08+0900\n"
+"POT-Creation-Date: 2017-07-27 17:56+0900\n"
+"PO-Revision-Date: 2017-07-27 18:00+0900\n"
+"Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.0.2\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: taro-ad-fields.php\n"
@@ -16,8 +18,6 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
 "esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;"
 "_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
-"Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
-"Language: ja\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 "X-Poedit-SearchPathExcluded-1: node_modules\n"
@@ -135,19 +135,19 @@ msgstr "このポジションはテーマに登録されています。"
 msgid "This position is not registered for themes."
 msgstr "このポジションはテーマに登録されていません。"
 
-#: includes/post_type.php:197
+#: includes/post_type.php:199
 msgid "Open Help of Taro Ad Fields"
 msgstr "Taro Ad Fieldsのヘルプを表示"
 
-#: includes/post_type.php:199
+#: includes/post_type.php:201
 msgid "What will be displayed"
 msgstr "表示されるもの"
 
-#: includes/post_type.php:200
+#: includes/post_type.php:202
 msgid "The content in editor below."
 msgstr "以下のエディターのコンテンツ。"
 
-#: includes/post_type.php:201
+#: includes/post_type.php:203
 msgid ""
 "The content in \"Raw Content\" meta box. They will never be escaped, so you "
 "can use Javascripts for ads."
@@ -155,19 +155,19 @@ msgstr ""
 "「無加工のコンテンツ」メタボックスのコンテンツ。エスケープされないので、広告"
 "用Javascriptを使うことができます。"
 
-#: includes/post_type.php:202
+#: includes/post_type.php:204
 msgid "How To Preview"
 msgstr "プレビューの方法"
 
-#: includes/post_type.php:203
+#: includes/post_type.php:205
 msgid "Set this ad field's publish date to future."
 msgstr "この広告フィールドの公開日を未来に設定してください。"
 
-#: includes/post_type.php:204
+#: includes/post_type.php:206
 msgid "Then publish. This ad becomes future post."
 msgstr "その後、公開予約をします。この広告は公開予定になります。"
 
-#: includes/post_type.php:208
+#: includes/post_type.php:210
 #, php-format
 msgid ""
 "Access desired page with query paramete \"taf_preview=true\". If this ad "
@@ -177,19 +177,31 @@ msgstr ""
 "ください。この広告をトップページで表示したいのであれば、%s へ行ってくださ"
 "い。"
 
-#: includes/post_type.php:216
+#: includes/post_type.php:218
 msgid "Don't forget to change status of this ad after confirmation."
 msgstr "確認後、広告のステータスを変更することを忘れないようにしてください。"
 
-#: includes/post_type.php:218
+#: includes/post_type.php:220
 msgid "Field Expiration"
 msgstr "フィールドの有効期限"
 
-#: includes/post_type.php:220
+#: includes/post_type.php:222
 #, php-format
 msgid "If you want ads to be automatically expired, please consider %s!"
 msgstr ""
 "フィールドが自動で期限切れになるようにしたい場合は、%s をご検討ください!"
+
+#: includes/post_type.php:244
+msgid ""
+"No position is registered. No position will be displayed until you register "
+"at least 1 position."
+msgstr ""
+"ポジションが登録されていません。すくなくとも1つのポジションを登録するまで、"
+"広告は表示されません。"
+
+#: includes/post_type.php:245
+msgid "Register Positions"
+msgstr "ポジションを登録"
 
 #. Plugin Name of the plugin/theme
 msgid "Taro Ad Fields"
@@ -201,7 +213,7 @@ msgstr "https://ja.wordpress.org/plugin/taro-ad-fields"
 
 #. Description of the plugin/theme
 msgid "Add ad block for advertisments"
-msgstr ""
+msgstr "広告のためのブロックを追加します。"
 
 #. Author of the plugin/theme
 msgid "tarosky"

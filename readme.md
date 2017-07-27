@@ -62,6 +62,19 @@ add_filter( 'taf_default_positions', function() {
 } );
 </pre>
 
+Defaults are empty array, so no default position.
+You can add new position to them with filter hook like above.
+The structure of array will be like below:
+
+<pre>
+[
+  'slug_name' => [
+    'name'        => 'Verbose Postion Name',
+    'description' => 'About where will be displayed(up to you)',
+  ],
+]
+</pre>
+
 
 ## Installation
 

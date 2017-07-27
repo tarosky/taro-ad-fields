@@ -126,7 +126,7 @@ add_action( 'admin_notices', function () {
 			}
 		}
 		?>
-		<div class="error">
+		<div class="notice notice-info">
 			<p>
 				<strong><?php esc_html_e( 'Notice:', 'taf' ) ?></strong>
 				<?php esc_html_e( 'Default positions are registered from theme or plugin. Changing them may cause unexpected result.', 'taf' ) ?>
@@ -224,6 +224,27 @@ add_action( 'edit_form_after_title', function( $post ) {
 		</dl>
 	</div>
 	<?php
+} );
+
+// Show notices
+add_action( 'admin_notices', function() {
+	if ( ! current_user_can( 'edit_others_posts' ) ) {
+		return;
+	}
+	$terms = get_terms( [
+		'taxonomy' => 'ad-position',
+		'hide_empty' => false,
+	] );
+	if ( $terms && ! is_wp_error( $terms ) ) {
+		return;
+	}
+	// No position exists.
+	printf(
+		'<div class="error"><p><strong>[Taro Ad Fields]</strong> %1$s &raquo; <a href="%3$s">%2$s</a></p></div>',
+		esc_html__( 'No position is registered. No position will be displayed until you register at least 1 position.', 'taf' ),
+		esc_html__( 'Register Positions', 'taf' ),
+		admin_url( 'edit-tags.php?taxonomy=ad-position&post_type=ad-content' )
+	);
 } );
 
 /**
