@@ -48,5 +48,6 @@ add_action( 'save_post', function( $post_id, $post ) {
 	if ( ! isset( $_POST['_tafnonce'] ) || ! wp_verify_nonce( $_POST['_tafnonce'], 'taf_meta' )  ) {
 		return;
 	}
+	// Do not sanitize html because it allows javascript to output.
 	update_post_meta( $post_id, '_taf_content', $_POST['taf_content'] );
 }, 10, 2 );

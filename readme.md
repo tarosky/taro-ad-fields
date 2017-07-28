@@ -24,8 +24,6 @@ Call action hook in your theme:
 &lt;?php do_action( 'taro_ad_field', 'after-header', '&lt;div class="after-header"&gt;', '&lt;/div&gt;' ); ?&gt;
 </pre>
 
-
-
 In this place, the latest ad will be displayed.
 With [Taro Clockwork Post](https://wordpress.org/plugins/taro-clockwork-post/) plugin, you can let your ad be automatically expired.
 
@@ -34,7 +32,7 @@ With [Taro Clockwork Post](https://wordpress.org/plugins/taro-clockwork-post/) p
 `do_action( $hook_name, $slug, $before, $after );`
 
 1. **$hook_name**: The action hook name. Always should be `taro_ad_field`.
-2. **$slug**: Slug of postion.
+2. **$slug**: Slug of position.
 3. **$before**: String to be output just before ad block. If no ad exists, this won't be displayed.
 4. **$after**: String to be output just after ad block.
 
@@ -94,7 +92,7 @@ We host our code on [Github](https://github.com/tarosky/taro-ad-fields), so feel
 As far as we konw, **NO**. But nothing is perfect.
 This plugin allows you to save Javascript like Google Adsense code,
 so please be careful about who can edit your ad.
-You cam customize the capability for ad fields by hooking `taf_post_type_args` filter.
+You can customize the capability for ad fields by hooking `taf_post_type_args` filter.
 
 ## Screenshots
 

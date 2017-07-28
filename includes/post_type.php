@@ -248,14 +248,16 @@ add_action( 'admin_notices', function() {
 } );
 
 /**
- * Add query var for preview
+ * Add query var for preview.
+ *
+ * @todo avoid front page query
  */
 add_filter( 'query_vars', function( $vars ) {
 	$vars[] = 'taf_preview';
 	return $vars;
 } );
 
-// No cache if this is preview
+// No cache if this is preview.
 add_action( 'template_redirect', function() {
 	if ( 'true' === get_query_var( 'taf_preview' ) ) {
 		nocache_headers();

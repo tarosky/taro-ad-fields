@@ -12,15 +12,16 @@ PHP Version: 5.4.0
 Author URI: https://tarosky.co.jp
 */
 
-add_action( 'plugins_loaded', '_taro_ad_field_init' );
+add_action( 'plugins_loaded', 'taro_ad_field_init' );
 
 /**
  * Bootstrap
  *
  * @package taf
+ * @since 1.0.0
  * @access private
  */
-function _taro_ad_field_init() {
+function taro_ad_field_init() {
 	load_plugin_textdomain( 'taf', false, basename( dirname( __FILE__ ) ) . '/languages' );
 	foreach ( scandir( dirname( __FILE__ ) . '/includes' ) as $file ) {
 		if ( preg_match( '#^[^._].*\.php$#u', $file ) ) {
@@ -33,6 +34,7 @@ function _taro_ad_field_init() {
  * Get version number
  *
  * @package taf
+ * @since 1.0.0
  * @return string
  */
 function taro_ad_version() {
