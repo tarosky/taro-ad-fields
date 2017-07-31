@@ -1,0 +1,24 @@
+{
+    "name": "tarosky/taro-ad-fields",
+    "description": "Advertise block manager for WordPress.",
+    "type": "library",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "tarosky",
+            "email": "info@tarosky.co.jp"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.8",
+        "squizlabs/php_codesniffer": "~2.8",
+        "wp-coding-standards/wpcs": "~0.11"
+    },
+    "autoload": {
+
+    }
+}

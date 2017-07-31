@@ -1,0 +1,34 @@
+language: php
+notifications:
+  email:
+    on_success: never
+    on_failure: change
+branches:
+  only:
+  - master
+  - "/^v?[0-9\\.]+$/"
+php:
+- 5.6
+- 7.0
+env:
+  matrix:
+  - WP_VERSION=latest WP_MULTISITE=0
+  - WP_VERSION=4.6 WP_MULTISITE=0
+  global:
+  - SVN_REPO: https://plugins.svn.wordpress.org/taro-ad-fields/
+  - secure: "LEm8la7arFmXCd29kRoVChHTfSlpvA7PkBKj/sVsKx2WLHP2KEwZqQ77k5J8Z7Ik4v9uF8e/LHZtwvW4bpcy9VY5Yz3mD7RzLvk1A5+c4bZ9u6HFF528S5rzyvDl47xatHOF0Az6F4LAdcWS6j40zIJvF6ES4m0N6PHFBM5flEoTJOssHItlKPDh9R2HQ8x0/yX8RnQs5hPFiNprkIiGY21Y+MxpwcxuYI89QeFd8s6vhvPf/y/QJyFGeQjBtcuNbmaWK0Dai8rfmEEYvMQae46bMy4UfTBhKttzJ2rPiorZfeK0+Ee1FQa3bAe8Totc/763kVmO4xMUffpUYVCyFxaMCGqTRjiL/CGi5hOtNTfYflOfZe8N53OgAuyY/GIuAcDSlg2A10DW9K+3N9hLU2AoQ4DAxvl/uyTYgPi1r3iB2KKXevF4pTCKqw//aO2VN9iBVLSJwHQSlvtFsoSBjIJWDfbVGbh72LQXxC8Fl2pM8HLARhGNH5/ieJmGIen/YW0VLRDIjc0x8C9UpW5+alLi8NuDswZH410ik46ZKwPtBn+ZQ9fN4Niw5CHmYQp46OuY0vnf4zhrJKyxEVl6bWdIId7GRkgEeeInoZyUlsWM3nxitI4SqrBxGPbGA4YP65lOaY4mmDpKM9zgL1U5ZC7Hh2bErJ+OgGt2PhbyV3M="
+matrix:
+  include:
+  - php: 5.6
+    env: WP_VERSION=4.6 WP_MULTISITE=0 WP_PULUGIN_DEPLOY=1
+before_script:
+- composer install
+- curl -s -o $HOME/.nvm/nvm.sh https://raw.githubusercontent.com/creationix/nvm/v0.31.0/nvm.sh
+- source $HOME/.nvm/nvm.sh
+- nvm install v6.9.1
+- node --version
+- npm install && npm run package
+- bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
+script:
+- phpunit
+after_success: curl -L https://raw.githubusercontent.com/miya0001/travis2wpplugin/master/deploy.sh | bash
