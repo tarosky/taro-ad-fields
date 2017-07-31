@@ -52,7 +52,7 @@ class TafWidget extends WP_Widget {
 			? "{$args['before_title']}{$instance['title']}{$args['after_title']}" : '';
 		$before = "{$args['before_widget']}{$title}<div class=\"widget-taf\">";
 		$after  = '</div>' . $args['after_widget'];
-		taf_render( $term->slug, $before, $after );
+		echo taf_render( $term->slug, $before, $after );
 	}
 
 	/**

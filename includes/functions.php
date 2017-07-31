@@ -50,6 +50,8 @@ function taf_is_registered( $term ) {
  * @param string $position
  * @param string $before Default empty string
  * @param string $after  Default empty string
+ *
+ * @return string
  */
 function taf_render( $position, $before = '', $after = '' ) {
 	$position = get_term_by( 'slug', $position, 'ad-position' );
@@ -68,15 +70,18 @@ function taf_render( $position, $before = '', $after = '' ) {
 	    ],
 	];
 	foreach( get_posts( $args ) as $ad ) {
+		$output = '';
+
 		$meta = get_post_meta( $ad->ID, '_taf_content', true );
-		echo $before;
 		if ( $meta ) {
-			echo $meta;
+			$output .= $meta;
 		}
 		if ( trim( $ad->post_content ) ) {
-			echo apply_filters( 'the_content', $ad->post_content );
+			$output .= apply_filters( 'the_content', $ad->post_content );
 		}
-		echo $after;
+		if ( $output ) {
+			return $before . $output . $after;
+		}
 	}
+	return '';
 }
-add_action( 'taro_ad_field', 'taf_render', 10, 3 );
