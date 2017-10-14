@@ -8,7 +8,7 @@ Author URI: https://tarosky.co.jp
 Text Domain: taf
 Domain Path: /languages/
 License: GPL v3 or later.
-Version: 1.0.0
+Version: 1.1.0
 PHP Version: 5.4.0
 */
 

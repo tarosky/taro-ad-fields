@@ -113,20 +113,7 @@ add_action( 'init', function () {
 add_action( 'admin_notices', function () {
 	$screen = get_current_screen();
 	if ( false !== array_search( $screen->id, [ 'edit-ad-position' ] ) && taf_default_positions() ) {
-		foreach ( taf_default_positions() as $slug => $term ) {
-			$name = isset( $term['name'] ) ? $term['name'] : $slug;
-			$desc = isset( $term['description'] ) ? $term['description'] : '';
-			$exist = get_term_by( 'slug', $slug, 'ad-position' );
-			if ( is_wp_error( $exist ) || ! $exist ) {
-				$term_ids = wp_insert_term( $name, 'ad-position', [
-					'slug' => $slug,
-					'description' => $desc,
-				] );
-				if ( ! is_wp_error( $term_ids ) && isset( $term['mode'] ) && taf_available_display_mode( $term['mode'] ) ) {
-				    update_term_meta( $term_ids['term_id'], 'taf_display_mode', $term['mode'] );
-                }
-			}
-		}
+        taf_register_positions();
 		?>
 		<div class="notice notice-info">
 			<p>

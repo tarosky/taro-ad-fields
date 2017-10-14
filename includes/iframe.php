@@ -79,7 +79,7 @@ add_action( 'pre_get_posts', function( WP_Query &$wp_query ) {
              * Executed at
 			 */
             do_action( 'taf_head', $term );
-            $style = [];
+            $styles = [];
             foreach ( [ 'width', 'height' ] as $prop ) {
                 if ( isset( $_GET[ $prop ] ) && is_numeric( $_GET[ $prop ] ) && 0 < $_GET[ $prop ] ) {
                     $styles[ $prop ] = sprintf( '%dpx', $_GET[ $prop ] );

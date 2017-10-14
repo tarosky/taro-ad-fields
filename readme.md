@@ -5,6 +5,7 @@ Tags: advertisement
 Requires at least: 4.7.0  
 Tested up to: 4.8.2  
 Stable tag: 1.1.0  
+Requires PHP: 5.4.0  
 License: GPLv3 or later  
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -55,6 +56,7 @@ add_filter( 'taf_default_positions', function() {
 		'after-content' => [
 			'name' => 'After Content',
 			'description' => 'Displayed just after content.',
+			'mode' => 'iframe',
 		],
 	];
 } );
@@ -69,10 +71,15 @@ The structure of array will be like below:
   'slug_name' => [
     'name'        => 'Verbose Postion Name',
     'description' => 'About where will be displayed(up to you)',
+    'mode'        => 'iframe',
   ],
 ]
 </pre>
 
+If you set mode as 'iframe', this position will have URL and display ad in very simple HTML pages.
+You can get URL from view link in position list of admin screen.
+
+This feature is useful to deliver ad in external platform like [Facebook Instant Article](https://instantarticles.fb.com).
 
 ## Installation
 
