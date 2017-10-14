@@ -85,3 +85,43 @@ function taf_render( $position, $before = '', $after = '' ) {
 	}
 	return '';
 }
+
+/**
+ * Check if display mode is O.K.
+ *
+ * @param string $mode
+ * @return bool
+ */
+function taf_available_display_mode( $mode ) {
+	return in_array( $mode, [ 'iframe', ] );
+}
+
+/**
+ *
+ *
+ * @param string|int $position Term slug, term_id
+ * @param array      $args     Query parameters added to URL.
+ * @param string     $field    Default slug
+ * @return string|WP_Error
+ */
+function taf_iframe_url( $position, $args = [], $field = 'slug' ) {
+	$term = get_term_by( $field, $position, 'ad-position' );
+	if ( ! $term || is_wp_error( $term ) ) {
+		return '';
+	} else {
+		$url = get_term_link( $term );
+		if ( $args ) {
+			$url = add_query_arg( $args, $url );
+		}
+		/**
+		 * taf_iframe_url
+		 *
+		 * Get term url
+		 *
+		 * @since 1.1.0
+		 * @param string  $url
+		 * @param WP_Term $term
+		 */
+		return apply_filters( 'taf_iframe_url', $url, $term );
+	}
+}

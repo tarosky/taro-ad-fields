@@ -112,17 +112,19 @@ add_action( 'init', function () {
  */
 add_action( 'admin_notices', function () {
 	$screen = get_current_screen();
-
 	if ( false !== array_search( $screen->id, [ 'edit-ad-position' ] ) && taf_default_positions() ) {
 		foreach ( taf_default_positions() as $slug => $term ) {
 			$name = isset( $term['name'] ) ? $term['name'] : $slug;
 			$desc = isset( $term['description'] ) ? $term['description'] : '';
 			$exist = get_term_by( 'slug', $slug, 'ad-position' );
 			if ( is_wp_error( $exist ) || ! $exist ) {
-				wp_insert_term( $name, 'ad-position', [
+				$term_ids = wp_insert_term( $name, 'ad-position', [
 					'slug' => $slug,
 					'description' => $desc,
 				] );
+				if ( ! is_wp_error( $term_ids ) && isset( $term['mode'] ) && taf_available_display_mode( $term['mode'] ) ) {
+				    update_term_meta( $term_ids['term_id'], 'taf_display_mode', $term['mode'] );
+                }
 			}
 		}
 		?>
@@ -141,7 +143,7 @@ add_action( 'admin_notices', function () {
  */
 add_filter( 'manage_edit-ad-position_columns', function ( $columns ) {
 	$columns['registered'] = __( 'Registered', 'taf' );
-
+    $columns['display_mode'] = __( 'Display', 'taf' );
 	return $columns;
 } );
 
@@ -149,11 +151,21 @@ add_filter( 'manage_edit-ad-position_columns', function ( $columns ) {
  * Show column content for taxonomy
  */
 add_filter( 'manage_ad-position_custom_column', function ( $value, $column, $term_id ) {
-	if ( taf_is_registered( $term_id ) ) {
-		return '<span class="dashicons dashicons-thumbs-up" style="color: #4b9b6d;"></span>';
-	} else {
-		return '<span class="dashicons dashicons-thumbs-down" style="color: darkgrey;"></span>';
-	}
+    switch ( $column ) {
+        case 'registered':
+			if ( taf_is_registered( $term_id ) ) {
+				return '<span class="dashicons dashicons-thumbs-up" style="color: #4b9b6d;"></span>';
+			} else {
+				return '<span class="dashicons dashicons-thumbs-down" style="color: darkgrey;"></span>';
+			}
+            break;
+        case 'display_mode':
+            return esc_html( get_term_meta( $term_id, 'taf_display_mode', true ) ?: '---' );
+            break;
+        default:
+            return $value;
+            break;
+    }
 }, 10, 3 );
 
 /**

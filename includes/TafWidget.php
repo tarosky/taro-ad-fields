@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+ * Widget for ad fields.
+ */
 class TafWidget extends WP_Widget {
 
 	public function __construct( $id_base = '', $name = '', array $widget_options = array(), array $control_options = array() ) {

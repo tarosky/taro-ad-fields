@@ -3,8 +3,8 @@
 Contributors: tarosky, Takahashi_Fumiki, yocchi161  
 Tags: advertisement  
 Requires at least: 4.7.0  
-Tested up to: 4.8.0  
-Stable tag: 1.0.0  
+Tested up to: 4.8.2  
+Stable tag: 1.1.0  
 License: GPLv3 or later  
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -100,7 +100,10 @@ W.I.P
 
 ## Changelog
 
-### 1.0
+### 1.1.0
 
-* A change since the previous version.
-* Another change.
+* Add iframe feature. Now you can provide ad field as iframe ad container. e.g. Facebook Instant Article.
+
+### 1.0.0
+
+* First Release.
