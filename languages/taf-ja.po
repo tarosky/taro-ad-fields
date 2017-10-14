@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Taro Ad Fields\n"
-"POT-Creation-Date: 2017-07-27 17:56+0900\n"
-"PO-Revision-Date: 2017-07-27 18:00+0900\n"
+"POT-Creation-Date: 2017-10-15 02:00+0900\n"
+"PO-Revision-Date: 2017-10-15 02:00+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language: ja\n"
@@ -24,31 +24,45 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-2: assets\n"
 "X-Poedit-SearchPathExcluded-3: src\n"
 
-#: includes/TafWidget.php:7
+#: includes/TafWidget.php:9
 msgid "Ad Block Widget"
 msgstr "広告ブロックウィジェット"
 
-#: includes/TafWidget.php:9
+#: includes/TafWidget.php:11
 msgid "Widget to display ad field in specified position."
 msgstr "指定したポジションの広告フィールドを表示するウィジェット。"
 
-#: includes/TafWidget.php:18
+#: includes/TafWidget.php:20
 msgid "Title"
 msgstr "タイトル"
 
-#: includes/TafWidget.php:26 includes/post_type.php:43
+#: includes/TafWidget.php:28 includes/post_type.php:43
 msgid "Position"
 msgstr "ポジション"
 
-#: includes/TafWidget.php:30
+#: includes/TafWidget.php:32
 msgid "Please select..."
 msgstr "選択してください"
+
+#: includes/iframe.php:19
+msgid "Display Mode"
+msgstr "表示モード"
+
+#: includes/iframe.php:26
+msgid "Not specified"
+msgstr "指定なし"
+
+#: includes/iframe.php:33
+msgid "If set to iframe, this fields has URL and simple html pages."
+msgstr ""
+"iframeを設定した場合、このフィールドはURLを持ち、シンプルなHTMLページとして"
+"表示されます。"
 
 #: includes/meta-box.php:16
 msgid "Raw Content"
 msgstr "無加工のコンテンツ"
 
-#: includes/meta-box.php:37
+#: includes/meta-box.php:38
 msgid ""
 "If you need Javascript, enter here. Contents will be displayed without "
 "escape."
@@ -111,11 +125,11 @@ msgid ""
 msgstr ""
 "複数のポジションを選択した場合、同じブロックが複数の場所に表示されます。"
 
-#: includes/post_type.php:131
+#: includes/post_type.php:133
 msgid "Notice:"
 msgstr "注意："
 
-#: includes/post_type.php:132
+#: includes/post_type.php:134
 msgid ""
 "Default positions are registered from theme or plugin. Changing them may "
 "cause unexpected result."
@@ -123,31 +137,35 @@ msgstr ""
 "デフォルト・ポジションがテーマまたはプラグインから登録されています。変更する"
 "と意図しない結果を招くことがあります。"
 
-#: includes/post_type.php:143 includes/post_type.php:165
+#: includes/post_type.php:145 includes/post_type.php:177
 msgid "Registered"
 msgstr "登録"
 
-#: includes/post_type.php:170
+#: includes/post_type.php:146
+msgid "Display"
+msgstr "表示"
+
+#: includes/post_type.php:182
 msgid "This position is registered for themes."
 msgstr "このポジションはテーマに登録されています。"
 
-#: includes/post_type.php:175
+#: includes/post_type.php:187
 msgid "This position is not registered for themes."
 msgstr "このポジションはテーマに登録されていません。"
 
-#: includes/post_type.php:199
+#: includes/post_type.php:211
 msgid "Open Help of Taro Ad Fields"
 msgstr "Taro Ad Fieldsのヘルプを表示"
 
-#: includes/post_type.php:201
+#: includes/post_type.php:213
 msgid "What will be displayed"
 msgstr "表示されるもの"
 
-#: includes/post_type.php:202
+#: includes/post_type.php:214
 msgid "The content in editor below."
 msgstr "以下のエディターのコンテンツ。"
 
-#: includes/post_type.php:203
+#: includes/post_type.php:215
 msgid ""
 "The content in \"Raw Content\" meta box. They will never be escaped, so you "
 "can use Javascripts for ads."
@@ -155,19 +173,19 @@ msgstr ""
 "「無加工のコンテンツ」メタボックスのコンテンツ。エスケープされないので、広告"
 "用Javascriptを使うことができます。"
 
-#: includes/post_type.php:204
+#: includes/post_type.php:216
 msgid "How To Preview"
 msgstr "プレビューの方法"
 
-#: includes/post_type.php:205
+#: includes/post_type.php:217
 msgid "Set this ad field's publish date to future."
 msgstr "この広告フィールドの公開日を未来に設定してください。"
 
-#: includes/post_type.php:206
+#: includes/post_type.php:218
 msgid "Then publish. This ad becomes future post."
 msgstr "その後、公開予約をします。この広告は公開予定になります。"
 
-#: includes/post_type.php:210
+#: includes/post_type.php:222
 #, php-format
 msgid ""
 "Access desired page with query paramete \"taf_preview=true\". If this ad "
@@ -177,21 +195,21 @@ msgstr ""
 "ください。この広告をトップページで表示したいのであれば、%s へ行ってくださ"
 "い。"
 
-#: includes/post_type.php:218
+#: includes/post_type.php:230
 msgid "Don't forget to change status of this ad after confirmation."
 msgstr "確認後、広告のステータスを変更することを忘れないようにしてください。"
 
-#: includes/post_type.php:220
+#: includes/post_type.php:232
 msgid "Field Expiration"
 msgstr "フィールドの有効期限"
 
-#: includes/post_type.php:222
+#: includes/post_type.php:234
 #, php-format
 msgid "If you want ads to be automatically expired, please consider %s!"
 msgstr ""
 "フィールドが自動で期限切れになるようにしたい場合は、%s をご検討ください!"
 
-#: includes/post_type.php:244
+#: includes/post_type.php:256
 msgid ""
 "No position is registered. No position will be displayed until you register "
 "at least 1 position."
@@ -199,7 +217,7 @@ msgstr ""
 "ポジションが登録されていません。すくなくとも1つのポジションを登録するまで、"
 "広告は表示されません。"
 
-#: includes/post_type.php:245
+#: includes/post_type.php:257
 msgid "Register Positions"
 msgstr "ポジションを登録"
 
@@ -216,8 +234,8 @@ msgid "Add ad block for advertisments"
 msgstr "広告のためのブロックを追加します。"
 
 #. Author of the plugin/theme
-msgid "tarosky"
-msgstr "タロスカイ"
+msgid "Tarosky INC."
+msgstr "タロスカイ株式会社"
 
 #. Author URI of the plugin/theme
 msgid "https://tarosky.co.jp"

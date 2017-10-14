@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Taro Ad Fields\n"
-"POT-Creation-Date: 2017-07-27 17:56+0900\n"
+"POT-Creation-Date: 2017-10-15 01:59+0900\n"
 "PO-Revision-Date: 2017-07-06 18:51+0900\n"
 "Last-Translator: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
 "Language-Team: Takahashi Fumiki <takahashi.fumiki@hametuha.co.jp>\n"
@@ -24,31 +24,43 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-2: assets\n"
 "X-Poedit-SearchPathExcluded-3: src\n"
 
-#: includes/TafWidget.php:7
+#: includes/TafWidget.php:9
 msgid "Ad Block Widget"
 msgstr ""
 
-#: includes/TafWidget.php:9
+#: includes/TafWidget.php:11
 msgid "Widget to display ad field in specified position."
 msgstr ""
 
-#: includes/TafWidget.php:18
+#: includes/TafWidget.php:20
 msgid "Title"
 msgstr ""
 
-#: includes/TafWidget.php:26 includes/post_type.php:43
+#: includes/TafWidget.php:28 includes/post_type.php:43
 msgid "Position"
 msgstr ""
 
-#: includes/TafWidget.php:30
+#: includes/TafWidget.php:32
 msgid "Please select..."
+msgstr ""
+
+#: includes/iframe.php:19
+msgid "Display Mode"
+msgstr ""
+
+#: includes/iframe.php:26
+msgid "Not specified"
+msgstr ""
+
+#: includes/iframe.php:33
+msgid "If set to iframe, this fields has URL and simple html pages."
 msgstr ""
 
 #: includes/meta-box.php:16
 msgid "Raw Content"
 msgstr ""
 
-#: includes/meta-box.php:37
+#: includes/meta-box.php:38
 msgid ""
 "If you need Javascript, enter here. Contents will be displayed without "
 "escape."
@@ -108,85 +120,89 @@ msgid ""
 "places."
 msgstr ""
 
-#: includes/post_type.php:131
+#: includes/post_type.php:133
 msgid "Notice:"
 msgstr ""
 
-#: includes/post_type.php:132
+#: includes/post_type.php:134
 msgid ""
 "Default positions are registered from theme or plugin. Changing them may "
 "cause unexpected result."
 msgstr ""
 
-#: includes/post_type.php:143 includes/post_type.php:165
+#: includes/post_type.php:145 includes/post_type.php:177
 msgid "Registered"
 msgstr ""
 
-#: includes/post_type.php:170
+#: includes/post_type.php:146
+msgid "Display"
+msgstr ""
+
+#: includes/post_type.php:182
 msgid "This position is registered for themes."
 msgstr ""
 
-#: includes/post_type.php:175
+#: includes/post_type.php:187
 msgid "This position is not registered for themes."
 msgstr ""
 
-#: includes/post_type.php:199
+#: includes/post_type.php:211
 msgid "Open Help of Taro Ad Fields"
 msgstr ""
 
-#: includes/post_type.php:201
+#: includes/post_type.php:213
 msgid "What will be displayed"
 msgstr ""
 
-#: includes/post_type.php:202
+#: includes/post_type.php:214
 msgid "The content in editor below."
 msgstr ""
 
-#: includes/post_type.php:203
+#: includes/post_type.php:215
 msgid ""
 "The content in \"Raw Content\" meta box. They will never be escaped, so you "
 "can use Javascripts for ads."
 msgstr ""
 
-#: includes/post_type.php:204
+#: includes/post_type.php:216
 msgid "How To Preview"
 msgstr ""
 
-#: includes/post_type.php:205
+#: includes/post_type.php:217
 msgid "Set this ad field's publish date to future."
 msgstr ""
 
-#: includes/post_type.php:206
+#: includes/post_type.php:218
 msgid "Then publish. This ad becomes future post."
 msgstr ""
 
-#: includes/post_type.php:210
+#: includes/post_type.php:222
 #, php-format
 msgid ""
 "Access desired page with query paramete \"taf_preview=true\". If this ad "
 "will be displayed on top page, go to %s."
 msgstr ""
 
-#: includes/post_type.php:218
+#: includes/post_type.php:230
 msgid "Don't forget to change status of this ad after confirmation."
 msgstr ""
 
-#: includes/post_type.php:220
+#: includes/post_type.php:232
 msgid "Field Expiration"
 msgstr ""
 
-#: includes/post_type.php:222
+#: includes/post_type.php:234
 #, php-format
 msgid "If you want ads to be automatically expired, please consider %s!"
 msgstr ""
 
-#: includes/post_type.php:244
+#: includes/post_type.php:256
 msgid ""
 "No position is registered. No position will be displayed until you register "
 "at least 1 position."
 msgstr ""
 
-#: includes/post_type.php:245
+#: includes/post_type.php:257
 msgid "Register Positions"
 msgstr ""
 
@@ -203,7 +219,7 @@ msgid "Add ad block for advertisments"
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "tarosky"
+msgid "Tarosky INC."
 msgstr ""
 
 #. Author URI of the plugin/theme
