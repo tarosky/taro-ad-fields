@@ -14,10 +14,10 @@ class Taf_Basic_Test extends WP_UnitTestCase {
 	 * Test functions
 	 */
 	function test_functions() {
-		$this->assertEquals( [], taf_default_positions() );
+		$this->assertEquals( 4, count( taf_default_positions() ) );
 		$this->assertFalse( taf_is_registered( 'non-existing-term' ) );
 		$this->assertEmpty( taf_render( 'non-existing-position' ) );
-		$this->assertEmpty( taf_iframe_url( 'no-exsisting-position' ) );
+		$this->assertEmpty( taf_iframe_url( 'no-existing-position' ) );
 	}
 
 	function test_position() {
