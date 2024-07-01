@@ -2,4 +2,4 @@
 /assets/
 /vendor/
 /wordpress/
-.composer.lock
+composer.lock
