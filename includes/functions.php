@@ -56,8 +56,8 @@ function taf_clear_terms() {
 function taf_register_positions() {
 	$added = 0;
 	foreach ( taf_default_positions() as $slug => $term ) {
-		$name  = $term[ 'name' ] ?? $slug;
-		$desc  = $term[ 'description' ] ?? '';
+		$name  = $term['name'] ?? $slug;
+		$desc  = $term['description'] ?? '';
 		$exist = get_term_by( 'slug', $slug, 'ad-position' );
 		if ( is_wp_error( $exist ) || ! $exist ) {
 			$term_ids = wp_insert_term( $name, 'ad-position', array(
