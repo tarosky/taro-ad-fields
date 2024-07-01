@@ -162,7 +162,7 @@ function taf_available_display_mode( $mode ) {
 }
 
 /**
- *
+ * iframeとして表示する
  *
  * @param string|int $position Term slug, term_id
  * @param array      $args     Query parameters added to URL.

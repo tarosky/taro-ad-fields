@@ -26,6 +26,11 @@
     "autoload": {
 
     },
+	"autoload-dev": {
+		"psr-4": {
+			"Tarosky\\TaroAdFieldsTest\\": "tests/src"
+		}
+	},
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true

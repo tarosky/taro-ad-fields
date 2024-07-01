@@ -8,42 +8,41 @@
 
 /**
  * Add term meta which indicates this position is for iframe.
+ *
  */
-add_action( 'edit_tag_form_fields', function ( WP_Term $tag ) {
-	if ( 'ad-position' === $tag->taxonomy ) {
-		?>
-		<tr>
-			<th>
-				<?php wp_nonce_field( 'taf_term_meta', '_taftermmeta', false ); ?>
-				<label for="taf-term-display">
-					<?php esc_html_e( 'Display Mode', 'taf' ); ?>
-				</label>
-			</th>
-			<td>
-				<?php $current_display = get_term_meta( $tag->term_id, 'taf_display_mode', true ); ?>
-				<select name="taf-term-display" id="taf-term-display">
-					<option value="" <?php selected( $current_display, '' ); ?>>
-						<?php esc_html_e( 'Not specified', 'taf' ); ?>
-					</option>
-					<option value="iframe" <?php selected( $current_display, 'iframe' ); ?>>
-						iframe
-					</option>
-				</select>
-				<p class="description">
-					<?php esc_html_e( 'If set to iframe, this fields has URL and simple html pages.', 'taf' ); ?>
-				</p>
-			</td>
-		</tr>
-		<?php
-	}
+add_action( 'ad-position_edit_form_fields', function ( WP_Term $tag ) {
+	?>
+	<tr>
+		<th>
+			<?php wp_nonce_field( 'taf_term_meta', '_taftermmeta', false ); ?>
+			<label for="taf-term-display">
+				<?php esc_html_e( 'Display Mode', 'taf' ); ?>
+			</label>
+		</th>
+		<td>
+			<?php $current_display = get_term_meta( $tag->term_id, 'taf_display_mode', true ); ?>
+			<select name="taf-term-display" id="taf-term-display">
+				<option value="" <?php selected( $current_display, '' ); ?>>
+					<?php esc_html_e( 'Not specified', 'taf' ); ?>
+				</option>
+				<option value="iframe" <?php selected( $current_display, 'iframe' ); ?>>
+					iframe
+				</option>
+			</select>
+			<p class="description">
+				<?php esc_html_e( 'If set to iframe, this fields has URL and simple html pages.', 'taf' ); ?>
+			</p>
+		</td>
+	</tr>
+	<?php
 }, 11 );
 
 /**
  * Save term meta
  */
 add_action( 'edit_term', function ( $term_id, $term_taxonomy_id, $taxonomy ) {
-	if ( isset( $_POST['_taftermmeta'] ) && wp_verify_nonce( $_POST['_taftermmeta'], 'taf_term_meta' ) ) {
-		update_term_meta( $term_id, 'taf_display_mode', $_POST['taf-term-display'] );
+	if ( wp_verify_nonce( filter_input( INPUT_POST, '_taftermmeta' ), 'taf_term_meta' ) ) {
+		update_term_meta( $term_id, 'taf_display_mode', filter_input( INPUT_POST, 'taf-term-display' ) );
 	}
 }, 10, 3 );
 

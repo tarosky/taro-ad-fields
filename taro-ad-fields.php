@@ -21,11 +21,21 @@ add_action( 'plugins_loaded', 'taro_ad_field_init' );
  * @access private
  */
 function taro_ad_field_init() {
+	// Load translation.
 	load_plugin_textdomain( 'taf', false, basename( __DIR__ ) . '/languages' );
+	// Load includes.
 	foreach ( scandir( __DIR__ . '/includes' ) as $file ) {
 		if ( preg_match( '#^[^._].*\.php$#u', $file ) ) {
 			require __DIR__ . '/includes/' . $file;
 		}
+	}
+	// Composer if exists.
+	if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+		require_once __DIR__ . '/vendor/autoload.php';
+	}
+	// If this is test environment, load test bootstrap.
+	if ( class_exists( 'Tarosky\TaroAdFieldsTest\Bootstrap' ) ) {
+		new Tarosky\TaroAdFieldsTest\Bootstrap();
 	}
 }
 
