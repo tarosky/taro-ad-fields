@@ -22,10 +22,10 @@ add_action( 'plugins_loaded', 'taro_ad_field_init' );
  * @access private
  */
 function taro_ad_field_init() {
-	load_plugin_textdomain( 'taf', false, basename( dirname( __FILE__ ) ) . '/languages' );
-	foreach ( scandir( dirname( __FILE__ ) . '/includes' ) as $file ) {
+	load_plugin_textdomain( 'taf', false, basename( __DIR__ ) . '/languages' );
+	foreach ( scandir( __DIR__ . '/includes' ) as $file ) {
 		if ( preg_match( '#^[^._].*\.php$#u', $file ) ) {
-			require dirname( __FILE__ ) . '/includes/' . $file;
+			require __DIR__ . '/includes/' . $file;
 		}
 	}
 }
@@ -40,7 +40,7 @@ function taro_ad_field_init() {
 function taro_ad_version() {
 	static $version = null;
 	if ( is_null( $version ) ) {
-		$info = get_file_data( __FILE__, array(
+		$info    = get_file_data( __FILE__, array(
 			'version' => 'Version',
 		) );
 		$version = $info['version'];

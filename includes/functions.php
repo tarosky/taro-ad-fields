@@ -20,7 +20,7 @@ function taf_default_positions() {
 	 * @param array $positions
 	 * @return array
 	 */
-	return apply_filters( 'taf_default_positions', [] );
+	return apply_filters( 'taf_default_positions', array() );
 }
 
 /**
@@ -30,18 +30,18 @@ function taf_default_positions() {
  * @return bool
  */
 function taf_clear_terms() {
-	$error = 0;
-	$positions = get_terms( [
+	$error     = 0;
+	$positions = get_terms( array(
 		'taxonomy'   => 'ad-position',
 		'hide_empty' => false,
-	] );
+	) );
 	if ( ! $positions || is_wp_error( $positions ) ) {
 		return true;
 	}
 	foreach ( $positions as $position ) {
 		$result = wp_delete_term( $position->term_id, 'ad-position' );
 		if ( ! $result || is_wp_error( $result ) ) {
-			$error++;
+			++$error;
 		}
 	}
 	return 0 === $error;
@@ -56,24 +56,24 @@ function taf_clear_terms() {
 function taf_register_positions() {
 	$added = 0;
 	foreach ( taf_default_positions() as $slug => $term ) {
-		$name = isset( $term['name'] ) ? $term['name'] : $slug;
-		$desc = isset( $term['description'] ) ? $term['description'] : '';
+		$name  = isset( $term['name'] ) ? $term['name'] : $slug;
+		$desc  = isset( $term['description'] ) ? $term['description'] : '';
 		$exist = get_term_by( 'slug', $slug, 'ad-position' );
 		if ( is_wp_error( $exist ) || ! $exist ) {
-			$term_ids = wp_insert_term( $name, 'ad-position', [
-				'slug' => $slug,
+			$term_ids = wp_insert_term( $name, 'ad-position', array(
+				'slug'        => $slug,
 				'description' => $desc,
-			] );
+			) );
 			if ( ! is_wp_error( $term_ids ) ) {
-				$added++;
+				++$added;
 				$exist = get_term_by( 'term_id', $term_ids['term_id'], 'ad-position' );
 			}
 		} else {
-			$added++;
-			wp_update_term( $exist->term_id, 'ad-position', [
-				'slug' => $slug,
+			++$added;
+			wp_update_term( $exist->term_id, 'ad-position', array(
+				'slug'        => $slug,
 				'description' => $desc,
-			] );
+			) );
 		}
 		if ( is_wp_error( $exist ) ) {
 			continue;
@@ -119,22 +119,22 @@ function taf_is_registered( $term ) {
  * @return string
  */
 function taf_render( $position, $before = '', $after = '' ) {
-	$position = get_term_by( 'slug', $position, 'ad-position' );
+	$position   = get_term_by( 'slug', $position, 'ad-position' );
 	$is_preview = current_user_can( 'edit_posts' ) && ( 'true' === get_query_var( 'taf_preview' ) );
-	$args = [
+	$args       = array(
 		'post_type'      => 'ad-content',
-	    'posts_per_page' => 1,
-	    'orderby' => [ 'date' => 'DESC' ],
-	    'post_status' => $is_preview ? [ 'publish', 'future' ] : 'publish',
-	    'tax_query' => [
-	    	[
-	    		'taxonomy' => 'ad-position',
-		        'terms'    => $position,
-		        'field'    => 'slug',
-		    ]
-	    ],
-	];
-	foreach( get_posts( $args ) as $ad ) {
+		'posts_per_page' => 1,
+		'orderby'        => array( 'date' => 'DESC' ),
+		'post_status'    => $is_preview ? array( 'publish', 'future' ) : 'publish',
+		'tax_query'      => array(
+			array(
+				'taxonomy' => 'ad-position',
+				'terms'    => $position,
+				'field'    => 'slug',
+			),
+		),
+	);
+	foreach ( get_posts( $args ) as $ad ) {
 		$output = '';
 
 		$meta = get_post_meta( $ad->ID, '_taf_content', true );
@@ -158,7 +158,7 @@ function taf_render( $position, $before = '', $after = '' ) {
  * @return bool
  */
 function taf_available_display_mode( $mode ) {
-	return in_array( $mode, [ 'iframe', ] );
+	return in_array( (string) $mode, [ 'iframe' ], true );
 }
 
 /**
@@ -169,7 +169,7 @@ function taf_available_display_mode( $mode ) {
  * @param string     $field    Default slug
  * @return string|WP_Error
  */
-function taf_iframe_url( $position, $args = [], $field = 'slug' ) {
+function taf_iframe_url( $position, $args = array(), $field = 'slug' ) {
 	$term = get_term_by( $field, $position, 'ad-position' );
 	if ( ! $term || is_wp_error( $term ) ) {
 		return '';

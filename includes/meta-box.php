@@ -5,7 +5,7 @@
 
 // Enqueue Style
 add_action( 'admin_enqueue_scripts', function () {
-	wp_enqueue_style( 'taf-admin-style', plugin_dir_url( __DIR__ ) . 'assets/css/admin.css', [], taro_ad_version() );
+	wp_enqueue_style( 'taf-admin-style', plugin_dir_url( __DIR__ ) . 'assets/css/admin.css', array(), taro_ad_version() );
 } );
 
 // Register meta box
@@ -15,7 +15,7 @@ add_action( 'add_meta_boxes', function ( $post_type ) {
 	}
 	add_meta_box( 'ad-content', __( 'Raw Content', 'taf' ), function ( $post ) {
 		wp_nonce_field( 'taf_meta', '_tafnonce', false );
-		wp_enqueue_script( 'ace-editor', plugin_dir_url( __DIR__ ) . 'assets/lib/ace/ace.js', [ 'jquery' ], '1.2.8', true );
+		wp_enqueue_script( 'ace-editor', plugin_dir_url( __DIR__ ) . 'assets/lib/ace/ace.js', array( 'jquery' ), '1.2.8', true );
 		$js = <<<JS
 		(function(){
 			var editor = ace.edit("taf-editor");
@@ -33,9 +33,9 @@ JS;
 		?>
 		<div id="taf-editor" class="adMeta__editor"></div>
 		<textarea class="adMeta__textarea" name="taf_content"
-				  id="taf_content"><?= esc_textarea( get_post_meta( $post->ID, '_taf_content', true ) ) ?></textarea>
+					id="taf_content"><?php echo esc_textarea( get_post_meta( $post->ID, '_taf_content', true ) ); ?></textarea>
 		<p class="adMeta__desc">
-			<?php esc_html_e( 'If you need Javascript, enter here. Contents will be displayed without escape.', 'taf' ) ?>
+			<?php esc_html_e( 'If you need Javascript, enter here. Contents will be displayed without escape.', 'taf' ); ?>
 		</p>
 		<?php
 	}, $post_type, 'normal', 'high' );
