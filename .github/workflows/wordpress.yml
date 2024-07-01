@@ -79,7 +79,7 @@ jobs:
         run: |
           composer install --prefer-dist --no-dev
           npm install
-          npm run build
+          npm run package
 
       - name: Generate readme.txt
         uses: tarosky/workflows/actions/wp-readme@main

@@ -17,9 +17,7 @@
         "lint:css": "wp-scripts lint-style ./src/**/*.scss",
 		"lint": "npm run lint:css",
         "format:css": "stylelint \"src/scss/**/*.scss\" --fix",
-        "package": "npm run build:css",
-        "watch": "gulp watch",
-        "gulp": "gulp"
+		"watch": "npm-watch"
     },
     "repository": {
         "type": "git",
