@@ -16,7 +16,7 @@ add_action( 'add_meta_boxes', function ( $post_type ) {
 	add_meta_box( 'ad-content', __( 'Raw Content', 'taf' ), function ( $post ) {
 		// Enqueue code editor and settings for manipulating HTML.
 		$settings = wp_enqueue_code_editor( [
-			'type' => 'text/html'
+			'type' => 'text/html',
 		] );
 
 		// Return if the editor was not enqueued.
