@@ -10,6 +10,7 @@
         }
     ],
     "scripts": {
+		"test": "phpunit",
         "lint":  "phpcs --standard=phpcs.ruleset.xml $(find ./ -name '*.php')",
         "fix": "phpcbf --standard=phpcs.ruleset.xml $(find ./ -name '*.php')"
     },
