@@ -2,19 +2,19 @@
     "name": "taro-ad-fields",
     "version": "1.0.0",
     "description": "Gulp task for Taro Ad Fields",
-    "main": "gulpfile.js",
+    "main": "index.js",
     "directories": {
         "test": "tests"
     },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "RESULT=${PWD##*/} && wp-env run tests-cli ./wp-content/plugins/$RESULT/vendor/bin/phpunit -c ./wp-content/plugins/$RESULT/phpunit.xml.dist",
         "start": "wp-env start",
         "update": "wp-env start --update",
         "stop": "wp-env stop",
         "env": "wp-env",
         "build:css": "sass ./src/scss/:./assets/css/ && postcss ./assets/css/**/*.css --replace",
         "lint:css": "wp-scripts lint-style ./src/**/*.scss",
-		"format:css": "stylelint \"src/scss/**/*.scss\" --fix",
+        "format:css": "stylelint \"src/scss/**/*.scss\" --fix",
         "package": "npm run build:css",
         "watch": "gulp watch",
         "gulp": "gulp"
@@ -31,7 +31,7 @@
     },
     "homepage": "",
     "devDependencies": {
-        "@wordpress/env": "^9.10.0",
+        "@wordpress/env": "^10.2.0",
         "@wordpress/scripts": "^27.9.0",
         "@wordpress/stylelint-config": "^21.41.0",
         "cssnano": "^7.0.1",
@@ -54,5 +54,5 @@
                 "src/scss"
             ]
         }
-     }
+    }
 }
