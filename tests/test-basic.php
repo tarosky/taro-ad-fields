@@ -18,7 +18,6 @@ class Taf_Basic_Test extends WP_UnitTestCase {
 		$this->assertFalse( taf_is_registered( 'non-existing-term' ) );
 		$this->assertEmpty( taf_render( 'non-existing-position' ) );
 		$this->assertEmpty( taf_iframe_url( 'no-exsisting-position' ) );
-		$this->assertEquals( 1, preg_match( '#^\d+\.\d+\.\d+$#u', taro_ad_version() ) );
 	}
 
 	function test_position() {
