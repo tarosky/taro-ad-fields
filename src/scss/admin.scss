@@ -21,6 +21,22 @@
 		font-size: 0.8em;
 		color: #888;
 	}
+
+}
+
+// Use flex layout if box is move to center.
+#postbox-container-2 .adPosition {
+	display: flex;
+	flex-wrap: wrap;
+
+	&__item {
+		padding: 10px;
+		box-sizing: border-box;
+		flex: 0 1 25%;
+		border-top: none;
+		border-right: 1px dotted #ddd;
+		border-bottom: 1px dotted #ddd;
+	}
 }
 
 .adContent {

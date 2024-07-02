@@ -94,12 +94,11 @@ add_action( 'init', function () {
 								</p>
 							</div>
 						<?php endforeach; ?>
-						<div style="clear: left;"></div>
-						<hr/>
-						<p class="adPosition__info">
-							<?php esc_html_e( 'If you select multiple position, same block will be displayed in multiple places.', 'taf' ); ?>
-						</p>
 					</div>
+					<hr/>
+					<p class="adPosition__info">
+						<?php esc_html_e( 'If you select multiple position, same block will be displayed in multiple places.', 'taf' ); ?>
+					</p>
 					<?php
 				endif;
 			},
