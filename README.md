@@ -2,8 +2,8 @@
 
 Contributors: tarosky, Takahashi_Fumiki, yocchi161  
 Tags: advertisement  
-Requires at least: 4.7.0  
-Tested up to: 4.8.2  
+Requires at least: 5.9  
+Tested up to: 6.5  
 Stable tag: nightly
 Requires PHP: 7.4  
 License: GPLv3 or later  
