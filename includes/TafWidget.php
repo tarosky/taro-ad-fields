@@ -68,7 +68,6 @@ class TafWidget extends WP_Widget {
 	 * @return array
 	 */
 	public function update( $new_instance, $old_instance ) {
-		var_dump( $new_instance );
 		return $new_instance;
 	}
 }
