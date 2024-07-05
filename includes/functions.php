@@ -111,44 +111,54 @@ function taf_is_registered( $term ) {
 /**
  * Render ad content
  *
- * @package taf
- * @param string $position
- * @param string $before Default empty string
- * @param string $after  Default empty string
+ * @param string $position Slug of position.
+ * @param string $before   Default empty string
+ * @param string $after    Default empty string
+ * @param int    $number   Number to display. Default 1.
  *
  * @return string
  */
-function taf_render( $position, $before = '', $after = '' ) {
-	$position   = get_term_by( 'slug', $position, 'ad-position' );
+function taf_render( $position, $before = '', $after = '', $number = 1 ) {
+	$position = get_term_by( 'slug', $position, 'ad-position' );
+	if ( ! $position || is_wp_error( $position ) ) {
+		return '';
+	}
 	$is_preview = current_user_can( 'edit_posts' ) && ( 'true' === get_query_var( 'taf_preview' ) );
-	$args       = array(
+	$args       = apply_filters( 'taf_render_query', [
 		'post_type'      => 'ad-content',
-		'posts_per_page' => 1,
-		'orderby'        => array( 'date' => 'DESC' ),
-		'post_status'    => $is_preview ? array( 'publish', 'future' ) : 'publish',
-		'tax_query'      => array(
-			array(
+		'posts_per_page' => $number,
+		'orderby'        => [ 'date' => 'DESC' ],
+		'no_found_rows'  => true,
+		'post_status'    => $is_preview ? [ 'publish', 'future' ] : 'publish',
+		'tax_query'      => [
+			[
 				'taxonomy' => 'ad-position',
-				'terms'    => $position,
+				'terms'    => [ $position->slug ],
 				'field'    => 'slug',
-			),
-		),
-	);
-	foreach ( get_posts( $args ) as $ad ) {
-		$output = '';
-
-		$meta = get_post_meta( $ad->ID, '_taf_content', true );
+			],
+		],
+	], $position, $is_preview );
+	$query      = new WP_Query( $args );
+	if ( ! $query->have_posts() ) {
+		return '';
+	}
+	$output = '';
+	foreach ( $query->posts as $ad ) {
+		$meta       = get_post_meta( $ad->ID, '_taf_content', true );
+		$ad_content = '';
 		if ( $meta ) {
-			$output .= $meta;
+			// Meta fields exist.
+			$ad_content .= $meta;
 		}
 		if ( trim( $ad->post_content ) ) {
-			$output .= apply_filters( 'the_content', $ad->post_content );
+			// Post body exists.
+			$ad_content .= apply_filters( 'the_content', $ad->post_content );
 		}
-		if ( $output ) {
-			return $before . $output . $after;
+		if ( ! empty( $ad_content ) ) {
+			$output .= $before . $ad_content . $after;
 		}
 	}
-	return '';
+	return $output;
 }
 
 /**

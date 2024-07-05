@@ -26,7 +26,7 @@ class Bootstrap {
 		return [
 			'after_content' => [
 				'name'        => 'After Content',
-				'description' => 'Displayed after content in singular page.',
+				'description' => 'Displayed after content in singular page. Maximum 2 ads.',
 				'mode'        => '',
 			],
 			'body_open' => [
@@ -54,7 +54,7 @@ class Bootstrap {
 	 */
 	public function render_after_content( $template_file ) {
 		if ( get_template_directory() . '/content.php' === $template_file ) {
-			echo taf_render( 'after_content', '<aside class="hentry taf-after-content" style="padding: 20px; box-sizing: border-box;">', '</aside>' );
+			echo taf_render( 'after_content', '<aside class="hentry taf-after-content" style="padding: 20px; box-sizing: border-box;">', '</aside>', 2 );
 		}
 	}
 

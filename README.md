@@ -30,12 +30,13 @@ With [Taro Clockwork Post](https://wordpress.org/plugins/taro-clockwork-post/) p
 
 #### Hook Arguments
 
-`do_action( $hook_name, $slug, $before, $after );`
+<code>do_action( $hook_name, $slug, $before, $after, $number );></code>
 
 1. **$hook_name**: The action hook name. Always should be `taro_ad_field`.
 2. **$slug**: Slug of position.
 3. **$before**: String to be output just before ad block. If no ad exists, this won't be displayed.
 4. **$after**: String to be output just after ad block.
+5. **$number**: Number of ad to be displayed. Default is 1.
 
 ### From Widget
 
@@ -96,7 +97,7 @@ We host our code on [Github](https://github.com/tarosky/taro-ad-fields), so feel
 
 ### Is there any vulnerability?
 
-As far as we konw, **NO**. But nothing is perfect.
+As far as we know, **NO**. But nothing is perfect.
 This plugin allows you to save Javascript like Google Adsense code,
 so please be careful about who can edit your ad.
 You can customize the capability for ad fields by hooking `taf_post_type_args` filter.
@@ -106,6 +107,10 @@ You can customize the capability for ad fields by hooking `taf_post_type_args` f
 W.I.P
 
 ## Changelog
+
+### 1.2.5
+
+* Allow multiple ad in one field.
 
 ### 1.1.0
 
