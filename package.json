@@ -31,7 +31,7 @@
     },
     "homepage": "",
     "devDependencies": {
-        "@wordpress/env": "^10.2.0",
+        "@wordpress/env": "^10.6.0",
         "@wordpress/scripts": "^28.2.0",
         "@wordpress/stylelint-config": "^22.2.0",
         "cssnano": "^7.0.1",
