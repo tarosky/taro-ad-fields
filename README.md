@@ -2,9 +2,7 @@
 
 Contributors: tarosky, Takahashi_Fumiki, yocchi161  
 Tags: advertisement  
-Requires at least: 5.9  
 Tested up to: 6.5  
-Requires PHP: 7.4  
 Stable tag: nightly  
 License: GPLv3 or later  
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
@@ -70,7 +68,7 @@ The structure of array will be like below:
 <pre>
 [
   'slug_name' => [
-    'name'        => 'Verbose Postion Name',
+    'name'        => 'Verbose Position Name',
     'description' => 'About where will be displayed(up to you)',
     'mode'        => 'iframe',
   ],
@@ -107,6 +105,10 @@ You can customize the capability for ad fields by hooking `taf_post_type_args` f
 W.I.P
 
 ## Changelog
+
+### 1.2.6
+
+* Add filter hook for widget rendering.
 
 ### 1.2.5
 
