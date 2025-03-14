@@ -4,8 +4,8 @@ Contributors: tarosky, Takahashi_Fumiki, yocchi161
 Tags: advertisement  
 Requires at least: 5.9  
 Tested up to: 6.5  
-Stable tag: nightly
 Requires PHP: 7.4  
+Stable tag: nightly  
 License: GPLv3 or later  
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
 
