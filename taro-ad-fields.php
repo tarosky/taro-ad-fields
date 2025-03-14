@@ -5,6 +5,9 @@ Plugin URI: https://wordpress.org/plugin/taro-ad-fields
 Description: Add ad blocks for advertisement.
 Author: Tarosky INC.
 Author URI: https://tarosky.co.jp
+Requires at least: 5.9
+Tested up to: 6.7
+Requires PHP: 7.4
 Text Domain: taf
 Domain Path: /languages/
 License: GPL v3 or later.
@@ -33,7 +36,7 @@ function taro_ad_field_init() {
 	if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 		require_once __DIR__ . '/vendor/autoload.php';
 	}
-	// If this is test environment, load test bootstrap.
+	// If this is a test environment, load test bootstrap.
 	if ( class_exists( 'Tarosky\TaroAdFieldsTest\Bootstrap' ) ) {
 		new Tarosky\TaroAdFieldsTest\Bootstrap();
 	}

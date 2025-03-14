@@ -48,8 +48,19 @@ class TafWidget extends WP_Widget {
 	 * @param array $instance
 	 */
 	public function widget( $args, $instance ) {
+		// Check if position term exists.
 		$term = get_term_by( 'id', $instance['term_id'], 'ad-position' );
 		if ( ! $term || is_wp_error( $term ) ) {
+			return;
+		}
+		/**
+		 * Use can filter widget rendering.
+		 *
+		 * @param bool     $should_render If true, render widget.
+		 * @param WP_Term $term Position term.
+		 */
+		$should_render = apply_filters( 'taro_ad_field_widget_should_display', true, $term );
+		if ( ! $should_render ) {
 			return;
 		}
 		$title  = isset( $instance['title'] ) && $instance['title']
