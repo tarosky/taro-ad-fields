@@ -36,4 +36,4 @@ jobs:
           labels: |
             update
           assignees: |
-            user1
+            @tarosky/plugin-devs
