@@ -18,9 +18,56 @@ function taf_default_positions() {
 	 * taf_default_positions
 	 *
 	 * @param array $positions
-	 * @return array
+	 * @return array<string, array{name:string, description:string, mode:string}>
 	 */
 	return apply_filters( 'taf_default_positions', array() );
+}
+
+/**
+ * Get Default contexts to register.
+ *
+ * Contexts are useful for grouping ads.
+ * The contexts registered by the filter are recognized as those set for the theme.
+ * The theme can display ads according to specific contexts, such as browsing environment or group.
+ *
+ * @return array{string, name:string, group: string}
+ */
+function taf_default_contexts() {
+	return apply_filters( 'taf_default_contexts', array(
+		'mobile'     => array(
+			'name'  => __( 'Mobile Browser', 'taf' ),
+			'group' => 'device',
+		),
+		'desktop'    => array(
+			'name'  => __( 'Desktop Browser', 'taf' ),
+			'group' => 'device',
+		),
+		'all-device' => array(
+			'name'  => __( 'All Device', 'taf' ),
+			'group' => 'device',
+		),
+	) );
+}
+
+/**
+ * Get Default group to register in context.
+ *
+ * Context group is actually a parent term.
+ *
+ * @return array<string, array{name:string, slug:string, description:string}>
+ */
+function taf_default_context_group() {
+	/**
+	 * taf_default_context_groups
+	 *
+	 * @param array<string, array{name: string, description: string}> $groups
+	 */
+	return apply_filters( 'taf_default_context_groups', array(
+		'device' => array(
+			'name'        => __( 'Device', 'taf' ),
+			'description' => __( 'Depends on user\'s device.', 'taf' ),
+		),
+	) );
 }
 
 /**
@@ -95,41 +142,51 @@ function taf_register_positions() {
  *
  * @return bool
  */
-function taf_is_registered( $term ) {
+function taf_is_registered( $term, $taxonomy = '' ) {
 	if ( is_string( $term ) && ! is_numeric( $term ) ) {
-		$term = get_term_by( 'slug', $term, 'ad-position' );
-	} else {
-		$term = get_term( $term, 'ad-position' );
+		$term = get_term_by( 'slug', $term, $taxonomy );
+	} elseif ( ! is_a( $term, 'WP_Term' ) ) {
+		$term = get_term( $term, $taxonomy );
 	}
 	if ( ! is_a( $term, 'WP_Term' ) ) {
 		return false;
 	}
-	$positions = taf_default_positions();
-	return isset( $positions[ $term->slug ] );
+	switch ( $term->taxonomy ) {
+		case 'ad-position':
+			$positions = taf_default_positions();
+			return isset( $positions[ $term->slug ] );
+		case 'ad-context':
+			$groups   = taf_default_context_group();
+			$contexts = taf_default_contexts();
+			return array_key_exists( $term->slug, $groups ) || array_key_exists( $term->slug, $contexts );
+		default:
+			return false;
+	}
 }
 
 /**
  * Render ad content
  *
- * @param string $position Slug of position.
- * @param string $before   Default empty string
- * @param string $after    Default empty string
- * @param int    $number   Number to display. Default 1.
+ * @param string   $position Slug of position.
+ * @param string   $before   Default empty string
+ * @param string   $after    Default empty string
+ * @param int      $number   Number to display. Default 1.
+ * @param string[] $contexts Contexts to display.
  *
  * @return string
  */
-function taf_render( $position, $before = '', $after = '', $number = 1 ) {
+function taf_render( $position, $before = '', $after = '', $number = 1, array $contexts = array() ) {
+	// Check if position is registered.
 	$position = get_term_by( 'slug', $position, 'ad-position' );
 	if ( ! $position || is_wp_error( $position ) ) {
 		return '';
 	}
-	$is_preview = current_user_can( 'edit_posts' ) && ( 'true' === get_query_var( 'taf_preview' ) );
-	$args       = apply_filters( 'taf_render_query', [
+	$args = [
 		'post_type'      => 'ad-content',
 		'posts_per_page' => $number,
 		'orderby'        => [ 'date' => 'DESC' ],
 		'no_found_rows'  => true,
-		'post_status'    => $is_preview ? [ 'publish', 'future' ] : 'publish',
+		'post_status'    => 'publish',
 		'tax_query'      => [
 			[
 				'taxonomy' => 'ad-position',
@@ -137,8 +194,45 @@ function taf_render( $position, $before = '', $after = '', $number = 1 ) {
 				'field'    => 'slug',
 			],
 		],
-	], $position, $is_preview );
-	$query      = new WP_Query( $args );
+	];
+	// Is this preview?
+	if ( current_user_can( 'edit_posts' ) && ( 'true' === get_query_var( 'taf_preview' ) ) ) {
+		$args['post_status'] = [ 'publish', 'future' ];
+	}
+	// Is contexts set?
+	if ( ! empty( $contexts ) ) {
+		// Convert contexts to term objects.
+		$contexts = array_filter( array_map( function ( $slug ) {
+			$term = get_term_by( 'slug', $slug, 'ad-context' );
+			if ( ! $term || is_wp_error( $term ) ) {
+				return '';
+			}
+			return $term;
+		}, $contexts ) );
+		// Divide by group.
+		$context_queries = array();
+		foreach ( $contexts as $context ) {
+			if ( ! $context->parent ) {
+				continue;
+			}
+			if ( ! isset( $context_queries[ $context->parent ] ) ) {
+				$context_queries[ $context->parent ] = array();
+			}
+			$context_queries[ $context->parent ][] = $context->term_id;
+		}
+		foreach ( $context_queries as $parent => $term_ids ) {
+			$args['tax_query'][] = array(
+				'taxonomy' => 'ad-context',
+				'field'    => 'term_id',
+				'terms'    => $term_ids,
+				'operator' => 'IN',
+			);
+
+		}
+	}
+	$args = apply_filters( 'taf_render_query', $args, $position, $before, $after, $number, $contexts );
+	// Ship Query
+	$query = new WP_Query( $args );
 	if ( ! $query->have_posts() ) {
 		return '';
 	}

@@ -2,7 +2,6 @@
 
 Contributors: tarosky, Takahashi_Fumiki, yocchi161  
 Tags: advertisement  
-Tested up to: 6.5  
 Stable tag: nightly  
 License: GPLv3 or later  
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
@@ -20,10 +19,10 @@ You can manage your advertisement's schedule & display!
 Call action hook in your theme:
 
 <pre>
-&lt;?php do_action( 'taro_ad_field', 'after-header', '&lt;div class="after-header"&gt;', '&lt;/div&gt;' ); ?&gt;
+&lt;?php do_action( 'taro_ad_field', 'after-header', '&lt;div class="after-header"&gt;', '&lt;/div&gt;', 3 ); ?&gt;
 </pre>
 
-In this place, the latest ad will be displayed.
+In this place, the latest 3 ads will be displayed.
 With [Taro Clockwork Post](https://wordpress.org/plugins/taro-clockwork-post/) plugin, you can let your ad be automatically expired.
 
 #### Hook Arguments
@@ -35,6 +34,7 @@ With [Taro Clockwork Post](https://wordpress.org/plugins/taro-clockwork-post/) p
 3. **$before**: String to be output just before ad block. If no ad exists, this won't be displayed.
 4. **$after**: String to be output just after ad block.
 5. **$number**: Number of ad to be displayed. Default is 1.
+6. **$contexts**: Array of contexts. Context is a taxonomy that filters ads. For more details, see our [Wiki](https://github.com/tarosky/taro-ad-fields/wiki).
 
 ### From Widget
 
@@ -89,6 +89,10 @@ This feature is useful to deliver ad in external platform like [Facebook Instant
 
 ## Frequently Asked Questions
 
+### Do you have detailed documentaiton?
+
+Please check our [Wiki](https://github.com/tarosky/taro-ad-fields/wiki). English and Japanese documentations are available.
+
 ### How to Contribute
 
 We host our code on [Github](https://github.com/tarosky/taro-ad-fields), so feel free to send PR or issues.
@@ -105,6 +109,10 @@ You can customize the capability for ad fields by hooking `taf_post_type_args` f
 W.I.P
 
 ## Changelog
+
+### 1.3.0
+
+* Add context feature.
 
 ### 1.2.6
 
