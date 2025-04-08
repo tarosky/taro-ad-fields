@@ -2,7 +2,8 @@
 	"plugins": [
 		".",
 		"https://downloads.wordpress.org/plugin/taro-clockwork-post.latest-stable.zip",
-		"https://downloads.wordpress.org/plugin/query-monitor.latest-stable.zip"
+		"https://downloads.wordpress.org/plugin/query-monitor.latest-stable.zip",
+		"https://downloads.wordpress.org/plugin/wordpress-seo.latest-stable.zip"
 	],
 	"themes": [
 		"https://downloads.wordpress.org/theme/twentytwenty.latest-stable.zip"
