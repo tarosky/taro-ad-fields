@@ -110,7 +110,7 @@ W.I.P
 
 ## Changelog
 
-### 1.3.0
+### 1.3.2
 
 * Add context feature.
 
