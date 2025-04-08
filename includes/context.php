@@ -87,7 +87,6 @@ function taf_context_meta_box_callback( $post ) {
 		<?php esc_html_e( 'Context is defined by theme or plugin.', 'taf' ); ?>
 	</p>
 	<?php
-
 }
 
 /**
