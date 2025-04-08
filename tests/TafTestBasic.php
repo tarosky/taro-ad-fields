@@ -27,7 +27,6 @@ class TafTestBasic extends WP_UnitTestCase {
 		$term = get_term_by( 'slug', 'iframe', 'ad-position' );
 		$this->assertTrue( $term || ! is_wp_error( $term ) );
 		$this->assertEquals( 'iframe', get_term_meta( $term->term_id, 'taf_display_mode', true ) );
-
 		// Check clear method.
 		$this->assertTrue( taf_clear_terms() );
 	}
