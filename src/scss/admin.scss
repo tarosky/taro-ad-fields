@@ -72,7 +72,18 @@
 	}
 }
 
-.adMeta {
+#poststuff .adMeta {
+
+	&__container {
+		margin: 40px 0;
+
+	}
+
+	&__title {
+		margin: 0 0 20px;
+		font-size: 2em;
+		padding: 0;
+	}
 
 	&__editor {
 		min-height: 300px;
@@ -82,6 +93,9 @@
 		display: none;
 	}
 
+	&__line {
+		margin: 40px 0;
+	}
 
 	&__desc {
 		color: #888;
