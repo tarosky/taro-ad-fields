@@ -18,7 +18,7 @@ function taf_default_positions() {
 	 * taf_default_positions
 	 *
 	 * @param array $positions
-	 * @return array<string, array{name:string, description:string, mode:string}>
+	 * @return array<string, array{name:string, description:string, mode:string, contexts:string[]}>
 	 */
 	return apply_filters( 'taf_default_positions', array() );
 }
@@ -130,6 +130,16 @@ function taf_register_positions() {
 			update_term_meta( $exist->term_id, 'taf_display_mode', $term['mode'] );
 		} else {
 			delete_term_meta( $exist->term_id, 'taf_display_mode' );
+		}
+		delete_term_meta( $exist->term_id, 'taf_contexts' );
+		if ( ! empty( $term['contexts'] ) ) {
+			foreach ( $term['contexts'] as $group ) {
+				// Get term by slug.
+				$context = get_term_by( 'slug', $group, 'ad-context' );
+				if ( $context && ! is_wp_error( $context ) ) {
+					add_term_meta( $exist->term_id, 'taf_contexts', $context->slug );
+				}
+			}
 		}
 	}
 	return $added;

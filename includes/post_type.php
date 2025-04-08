@@ -92,6 +92,25 @@ add_action( 'init', function () {
 								<p class="adPosition__description">
 									<?php echo esc_html( $term->description ); ?>
 								</p>
+								<?php
+								$contexts = taf_get_position_contexts( $term );
+								if ( ! empty( $contexts ) && ! is_wp_error( $contexts ) ) {
+									?>
+									<p>
+										<?php esc_html_e( 'Available Contexts:', 'taf' ); ?>
+										<?php
+										foreach ( $contexts as $context ) {
+											?>
+											<a class="button" target="_blank" rel="noopener noreferrer" href="<?php echo esc_url( get_edit_term_link( $context ) ); ?>">
+												<?php echo esc_html( $context->name ); ?>
+											</a>
+											<?php
+										}
+										?>
+									</p>
+									<?php
+								}
+								?>
 							</div>
 						<?php endforeach; ?>
 					</div>
@@ -131,9 +150,9 @@ add_action( 'admin_notices', function () {
  */
 function taf_taxonomy_columns( $columns ) {
 	$columns['registered'] = __( 'Registered', 'taf' );
-	var_dump( $columns );
 	if ( 'ad-position' === get_current_screen()->taxonomy ) {
 		$columns['display_mode'] = __( 'Display', 'taf' );
+		$columns['contexts']     = __( 'Contexts', 'taf' );
 	}
 	return $columns;
 }
@@ -157,13 +176,43 @@ function taf_taxonomy_column_render( $value, $column, $term_id ) {
 			}
 		case 'display_mode':
 			return esc_html( get_term_meta( $term_id, 'taf_display_mode', true ) ?: '---' );
+		case 'contexts':
+			$labels = [];
+			foreach ( taf_get_position_contexts( $term_id ) as $context ) {
+				$labels[] = sprintf( '<a href="%s">%s</a>', get_edit_term_link( $context ), esc_html( $context->name ) );
+			}
+			return empty( $labels ) ? '---' : implode( ', ', $labels );
 		default:
 			return $value;
 	}
 }
-
 add_filter( 'manage_ad-position_custom_column', 'taf_taxonomy_column_render', 10, 3 );
 add_filter( 'manage_ad-context_custom_column', 'taf_taxonomy_column_render', 10, 3 );
+
+/**
+ * Get position contexts
+ *
+ * @param int|string|WP_Term $position Position slug.
+ *
+ * @return WP_Term[]
+ */
+function taf_get_position_contexts( $position ) {
+	$position = get_term( $position, 'ad-position' );
+	if ( ! $position || is_wp_error( $position ) ) {
+		return [];
+	}
+	$terms    = [];
+	$contexts = get_term_meta( $position->term_id, 'taf_contexts' );
+	if ( ! empty( $contexts ) ) {
+		foreach ( $contexts as $context ) {
+			$term = get_term_by( 'slug', $context, 'ad-context' );
+			if ( $term && ! is_wp_error( $term ) ) {
+				$terms[] = $term;
+			}
+		}
+	}
+	return $terms;
+}
 
 /**
  * Show form notice
