@@ -5,7 +5,7 @@
 	>
 	<testsuites>
 		<testsuite name="taro-ad-fields">
-			<directory prefix="test-" suffix=".php">./tests/</directory>
+			<directory prefix="TafTest" suffix=".php">./tests/</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>

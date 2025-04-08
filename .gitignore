@@ -4,3 +4,4 @@
 /wordpress/
 composer.lock
 /doc/
+*.cache
