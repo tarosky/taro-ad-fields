@@ -98,14 +98,8 @@ th.column-registered {
 
 .ad-context {
 	&__container {
-
-	}
-
-	&__heading {
-
-	}
-
-	&__item {
-
+		margin-bottom: 10px;
+		padding-bottom: 10px;
+		border-bottom: 1px solid #ddd;
 	}
 }
