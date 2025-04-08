@@ -15,7 +15,7 @@ class TafTestBasic extends WP_UnitTestCase {
 	 */
 	function test_functions() {
 		$this->assertEquals( 5, count( taf_default_positions() ) );
-		$this->assertFalse( taf_is_registered( 'non-existing-term' ) );
+		$this->assertFalse( taf_is_registered( 'non-existing-term', 'ad-position' ) );
 		$this->assertEmpty( taf_render( 'non-existing-position' ) );
 		$this->assertEmpty( taf_iframe_url( 'no-existing-position' ) );
 	}
