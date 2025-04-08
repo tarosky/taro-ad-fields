@@ -3,3 +3,5 @@
 /vendor/
 /wordpress/
 composer.lock
+/doc/
+*.cache

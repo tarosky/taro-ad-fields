@@ -95,3 +95,11 @@ th.column-display_mode {
 th.column-registered {
 	width: 2em;
 }
+
+.ad-context {
+	&__container {
+		margin-bottom: 10px;
+		padding-bottom: 10px;
+		border-bottom: 1px solid #ddd;
+	}
+}

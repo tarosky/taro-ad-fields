@@ -126,17 +126,28 @@ add_action( 'admin_notices', function () {
 
 /**
  * Add column for taxonomy
+ *
+ * @param array $columns string
  */
-add_filter( 'manage_edit-ad-position_columns', function ( $columns ) {
-	$columns['registered']   = __( 'Registered', 'taf' );
-	$columns['display_mode'] = __( 'Display', 'taf' );
+function taf_taxonomy_columns( $columns ) {
+	$columns['registered'] = __( 'Registered', 'taf' );
+	var_dump( $columns );
+	if ( 'ad-position' === get_current_screen()->taxonomy ) {
+		$columns['display_mode'] = __( 'Display', 'taf' );
+	}
 	return $columns;
-} );
+}
+add_filter( 'manage_edit-ad-position_columns', 'taf_taxonomy_columns' );
+add_filter( 'manage_edit-ad-context_columns', 'taf_taxonomy_columns' );
 
 /**
  * Show column content for taxonomy
+ *
+ * @param string $value Column value.
+ * @param string $column Column name.
+ * @param int    $term_id Term ID.
  */
-add_filter( 'manage_ad-position_custom_column', function ( $value, $column, $term_id ) {
+function taf_taxonomy_column_render( $value, $column, $term_id ) {
 	switch ( $column ) {
 		case 'registered':
 			if ( taf_is_registered( $term_id ) ) {
@@ -144,15 +155,15 @@ add_filter( 'manage_ad-position_custom_column', function ( $value, $column, $ter
 			} else {
 				return '<span class="dashicons dashicons-thumbs-down" style="color: darkgrey;"></span>';
 			}
-			break;
 		case 'display_mode':
 			return esc_html( get_term_meta( $term_id, 'taf_display_mode', true ) ?: '---' );
-			break;
 		default:
 			return $value;
-			break;
 	}
-}, 10, 3 );
+}
+
+add_filter( 'manage_ad-position_custom_column', 'taf_taxonomy_column_render', 10, 3 );
+add_filter( 'manage_ad-context_custom_column', 'taf_taxonomy_column_render', 10, 3 );
 
 /**
  * Show form notice

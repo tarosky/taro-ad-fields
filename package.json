@@ -1,58 +1,59 @@
 {
-    "name": "taro-ad-fields",
-    "version": "1.0.0",
-    "description": "Gulp task for Taro Ad Fields",
-    "main": "index.js",
-    "directories": {
-        "test": "tests"
-    },
-    "scripts": {
-        "test": "RESULT=${PWD##*/} && wp-env run tests-cli ./wp-content/plugins/$RESULT/vendor/bin/phpunit -c ./wp-content/plugins/$RESULT/phpunit.xml.dist",
-        "start": "wp-env start",
-        "update": "wp-env start --update",
-        "stop": "wp-env stop",
-        "env": "wp-env",
-		"package": "npm run build:css",
-        "build:css": "sass ./src/scss/:./assets/css/ && postcss ./assets/css/**/*.css --replace",
-        "lint:css": "wp-scripts lint-style ./src/**/*.scss",
+	"name": "taro-ad-fields",
+	"version": "1.0.0",
+	"description": "Gulp task for Taro Ad Fields",
+	"main": "index.js",
+	"directories": {
+		"test": "tests"
+	},
+	"scripts": {
+		"test": "RESULT=${PWD##*/} && wp-env run tests-cli ./wp-content/plugins/$RESULT/vendor/bin/phpunit -c ./wp-content/plugins/$RESULT/phpunit.xml.dist",
+		"start": "wp-env start",
+		"update": "wp-env start --update",
+		"stop": "wp-env stop",
+		"env": "wp-env",
+		"cli": "wp-env run cli wp",
+		"cli:test": "wp-env run tests-cli wp",
+		"build:css": "sass ./src/scss/:./assets/css/ && postcss ./assets/css/**/*.css --replace",
+		"lint:css": "wp-scripts lint-style ./src/**/*.scss",
 		"lint": "npm run lint:css",
-        "format:css": "stylelint \"src/scss/**/*.scss\" --fix",
+		"format:css": "stylelint \"src/scss/**/*.scss\" --fix",
 		"watch": "npm-watch"
-    },
-    "repository": {
-        "type": "git",
-        "url": ""
-    },
-    "keywords": [],
-    "author": "",
-    "license": "GPL-3.0",
-    "bugs": {
-        "url": ""
-    },
-    "homepage": "",
-    "devDependencies": {
-        "@wordpress/env": "^10.2.0",
-        "@wordpress/scripts": "^28.2.0",
-        "@wordpress/stylelint-config": "^22.2.0",
-        "cssnano": "^7.0.6",
-        "npm-watch": "^0.13.0",
-        "postcss-cli": "^11.0.0"
-    },
-    "volta": {
-        "node": "18.20.3"
-    },
-    "watch": {
-        "build:css": {
-            "extensions": "scss",
-            "patterns": [
-                "src/scss"
-            ]
-        },
-        "lint:css": {
-            "extensions": "scss",
-            "patterns": [
-                "src/scss"
-            ]
-        }
-    }
+	},
+	"repository": {
+		"type": "git",
+		"url": ""
+	},
+	"keywords": [],
+	"author": "",
+	"license": "GPL-3.0",
+	"bugs": {
+		"url": ""
+	},
+	"homepage": "",
+	"devDependencies": {
+		"@wordpress/env": "^10.2.0",
+		"@wordpress/scripts": "^28.2.0",
+		"@wordpress/stylelint-config": "^22.2.0",
+		"cssnano": "^7.0.6",
+		"npm-watch": "^0.13.0",
+		"postcss-cli": "^11.0.0"
+	},
+	"volta": {
+		"node": "18.20.3"
+	},
+	"watch": {
+		"build:css": {
+			"extensions": "scss",
+			"patterns": [
+				"src/scss"
+			]
+		},
+		"lint:css": {
+			"extensions": "scss",
+			"patterns": [
+				"src/scss"
+			]
+		}
+	}
 }
