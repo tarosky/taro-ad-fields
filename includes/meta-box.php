@@ -30,7 +30,7 @@ JS;
 	wp_nonce_field( 'taf_meta', '_tafnonce', false );
 	?>
 	<div class="adMeta__container">
-		<h2 class="adMeta__title"><?php esc_html_e( 'Raw HTML(JavaScript, CSS, iframe)', 'taf' ) ?></h2>
+		<h2 class="adMeta__title"><?php esc_html_e( 'Raw HTML(JavaScript, CSS, iframe)', 'taf' ); ?></h2>
 		<p class="adMeta__desc">
 			<?php esc_html_e( 'Enter HTML code below. This value will be output without escape. Most of ad code is acceptable.', 'taf' ); ?>
 		</p>
@@ -40,7 +40,7 @@ JS;
 
 	<hr class="adMeta__line" />
 
-	<h2 class="adMeta__title"><?php esc_html_e( 'Visual Editor', 'taf' ) ?></h2>
+	<h2 class="adMeta__title"><?php esc_html_e( 'Visual Editor', 'taf' ); ?></h2>
 	<p class="adMeta__desc">
 		<?php esc_html_e( 'If you need additional HTML with visual editor, enter below field. ', 'taf' ); ?>
 	</p>

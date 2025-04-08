@@ -29,6 +29,7 @@ class Bootstrap {
 				'name'        => 'Inside of head tag',
 				'description' => 'Displayed inside head tag.',
 				'mode'        => '',
+				'contexts'   => [ 'device' ],
 			],
 			'after_content' => [
 				'name'        => 'After Content',
@@ -39,11 +40,13 @@ class Bootstrap {
 				'name'        => 'Body Open',
 				'description' => 'Just after body open tag.',
 				'mode'        => '',
+				'contexts'   => [ 'device' ],
 			],
 			'in_footer' => [
 				'name'        => 'Footer',
 				'description' => 'In Footer.',
 				'mode'        => '',
+				'contexts'   => [ 'device' ],
 			],
 			'iframe' => [
 				'name'        => 'iframe Ad',
