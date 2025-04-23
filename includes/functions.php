@@ -252,7 +252,7 @@ function taf_render( $position, $before = '', $after = '', $number = 1, array $c
 		$ad_content = '';
 		if ( $meta ) {
 			// Meta fields exist.
-			$meta        = apply_filters( 'taf_content', $meta, $ad->ID );
+			$meta        = apply_filters( 'taf_content', $meta, $ad );
 			$ad_content .= $meta;
 		}
 		if ( trim( $ad->post_content ) ) {
@@ -277,7 +277,7 @@ function taf_available_display_mode( $mode ) {
 }
 
 /**
- * iframeとして表示する
+ * iframe縺ｨ縺励※陦ｨ遉ｺ縺吶ｋ
  *
  * @param string|int $position Term slug, term_id
  * @param array      $args     Query parameters added to URL.
