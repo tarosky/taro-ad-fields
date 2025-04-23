@@ -252,6 +252,7 @@ function taf_render( $position, $before = '', $after = '', $number = 1, array $c
 		$ad_content = '';
 		if ( $meta ) {
 			// Meta fields exist.
+			$meta        = apply_filters( 'taf_content', $meta, $ad );
 			$ad_content .= $meta;
 		}
 		if ( trim( $ad->post_content ) ) {
