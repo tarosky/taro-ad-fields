@@ -55,6 +55,9 @@ function taf_context_meta_box_callback( $post ) {
 		printf( '<p class="description">%s</p>', esc_html__( 'No context found.', 'taf' ) );
 		return;
 	}
+	// This description will display with jQuery if no contexts are required by current selection of positions.
+	printf( '<p id="no-contexts-available" class="description" style="display: none;">%s</p>', esc_html__( 'No Contexts available for current selection of Positions.', 'taf' ) );
+	// Draw context containers for each parent group.
 	foreach ( $all_parents as $parent ) {
 		$children = get_terms( 'ad-context', array(
 			'hide_empty' => false,
