@@ -55,6 +55,9 @@ function taf_context_meta_box_callback( $post ) {
 		printf( '<p class="description">%s</p>', esc_html__( 'No context found.', 'taf' ) );
 		return;
 	}
+	// This description will display with jQuery if no contexts are required by current selection of positions.
+	printf( '<p id="no-contexts-available" class="description" style="display: none;">%s</p>', esc_html__( 'No Contexts available for current selection of Positions.', 'taf' ) );
+	// Draw context containers for each parent group.
 	foreach ( $all_parents as $parent ) {
 		$children = get_terms( 'ad-context', array(
 			'hide_empty' => false,
@@ -71,6 +74,8 @@ function taf_context_meta_box_callback( $post ) {
 			// Description exists.
 			printf( '<p class="description">%s</p>', nl2br( esc_html( $parent->description ) ) );
 		}
+		// Allow selecting no context by adding a hidden input field.
+		echo '<input type="hidden" name="tax_input[ad-context][]" value="empty" />';
 		foreach ( $children as $child ) {
 			printf(
 				'<p class="ad-context__item"><label><input type="checkbox" name="tax_input[%s][]" value="%d" %s /> %s</label></p>',
