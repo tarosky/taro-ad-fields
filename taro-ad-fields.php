@@ -6,7 +6,6 @@ Description: Add ad blocks for advertisement.
 Author: Tarosky INC.
 Author URI: https://tarosky.co.jp
 Requires at least: 5.9
-Tested up to: 6.7
 Requires PHP: 7.4
 Text Domain: taf
 Domain Path: /languages/

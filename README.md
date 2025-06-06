@@ -1,7 +1,8 @@
 # Taro Ad Fields
 
-Contributors: tarosky, Takahashi_Fumiki, yocchi161  
 Tags: advertisement  
+Contributors: tarosky, Takahashi_Fumiki, yocchi161  
+Tested up to: 6.8  
 Stable tag: nightly  
 License: GPLv3 or later  
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
