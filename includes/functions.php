@@ -305,3 +305,67 @@ function taf_iframe_url( $position, $args = array(), $field = 'slug' ) {
 		return apply_filters( 'taf_iframe_url', $url, $term );
 	}
 }
+
+/**
+ * Validates that all context requirements for each ad position are satisfied.
+ *
+ * For each position's required contexts (stored as term meta),
+ * the function checks whether at least one of the submitted context ids
+ * in ad-content has a parent context that matches.
+ *
+ * @param array $tax_input Array of taxonomy inputs
+ * @return bool True if a match was found for all the required contexts.
+ */
+function taf_validate_tax_input( $tax_input ) {
+
+	// Get ad context (array of term ids)
+	$ad_context = array_filter( $tax_input['ad-context'] ?? [], 'is_numeric' );
+
+	// Get ad position (array of term names)
+	$ad_position = array_filter(
+		array_map( 'trim', explode( ',', $tax_input['ad-position'] ?? '' ) ),
+		fn( $val ) => $val !== ''
+	);
+
+	// Go through every position's required contexts and look for a match.
+	foreach ( $ad_position as $pos ) {
+		$pos_term = get_term_by( 'name', $pos, 'ad-position' );
+
+		if ( $pos_term && ! is_wp_error( $pos_term ) ) {
+			$req_context_slugs = get_term_meta( $pos_term->term_id, 'taf_contexts', false );
+
+			// Skip if position has no required contexts.
+			if ( empty( $req_context_slugs ) ) {
+				continue;
+			}
+
+			// Make sure each required context matches with the parent of at least one of the submitted contexts in ad-context.
+			foreach ( $req_context_slugs as $slug ) {
+				$matched = false;
+
+				foreach ( $ad_context as $context_id ) {
+					$context_term = get_term( $context_id, 'ad-context' );
+
+					if ( $context_term && ! is_wp_error( $context_term ) && $context_term->parent > 0 ) {
+						$parent_term = get_term( $context_term->parent, 'ad-context' );
+
+						// If match found, skip to next required context.
+						if ( $parent_term && ! is_wp_error( $parent_term ) ) {
+							if ( $parent_term->slug === $slug ) {
+								$matched = true;
+								break;
+							}
+						}
+					}
+				}
+
+				// Return false if no matching context was found.
+				if ( ! $matched ) {
+					return false;
+				}
+			}
+		}
+	}
+
+	return true;
+}

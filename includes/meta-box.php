@@ -55,6 +55,30 @@ add_action( 'save_post', function ( $post_id, $post ) {
 	if ( ! isset( $_POST['_tafnonce'] ) || ! wp_verify_nonce( $_POST['_tafnonce'], 'taf_meta' ) ) {
 		return;
 	}
+
 	// Do not sanitize html because it allows javascript to output.
 	update_post_meta( $post_id, '_taf_content', $_POST['taf_content'] );
+
+	// Show notice if no context is set for positions that require it.
+	if ( ! taf_validate_tax_input( $_POST['tax_input'] ) ) {
+		set_transient( 'taf_error_notice_' . get_current_user_id(), __( 'One or more positions you\'ve selected require a context. It\'s possible this ad might not show for some of the positions selected.', 'taf' ), 30 );
+	}
 }, 10, 2 );
+
+// Show notice when no context.
+add_action( 'admin_notices', function () {
+	$user_id = get_current_user_id();
+	$message = get_transient( 'taf_error_notice_' . $user_id );
+
+	if ( $message ) {
+		?>
+		<div class="notice notice-info is-dismissible">
+			<p>
+				<strong><?php esc_html_e( 'Notice:', 'taf' ); ?></strong>
+				<?php echo esc_html( $message ); ?>
+			</p>
+		</div>
+		<?php
+		delete_transient( 'taf_error_notice_' . $user_id );
+	}
+});
