@@ -324,7 +324,7 @@ function taf_validate_tax_input( $tax_input ) {
 	// Get ad position (array of term names)
 	$ad_position = array_filter(
 		array_map( 'trim', explode( ',', $tax_input['ad-position'] ?? '' ) ),
-		fn( $val ) => $val !== ''
+		fn( $val ) => '' !== $val
 	);
 
 	// Go through every position's required contexts and look for a match.
