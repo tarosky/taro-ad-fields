@@ -47,6 +47,13 @@ JS;
 	<?php
 }, 11 );
 
+// Filter ad-context on submit
+add_action('save_post', function () {
+	if ( isset( $_POST['tax_input']['ad-context'] ) && is_array( $_POST['tax_input']['ad-context'] ) ) {
+		$_POST['tax_input']['ad-context'] = array_filter( $_POST['tax_input']['ad-context'], 'is_numeric' );
+	}
+}, 9);
+
 // Save custom field
 add_action( 'save_post', function ( $post_id, $post ) {
 	if ( wp_is_post_autosave( $post ) || wp_is_post_revision( $post ) ) {
