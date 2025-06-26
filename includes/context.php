@@ -109,7 +109,7 @@ add_action( 'admin_notices', function () {
 		<div class="notice notice-info">
 			<p>
 				<strong><?php esc_html_e( 'Notice:', 'taf' ); ?></strong>
-				<?php esc_html_e( 'Default contexts are registered from theme or plugin. Changing them may cause unexpected result.', 'taf' ); ?>
+				<?php esc_html_e( 'Default contexts are registered from theme or plugin. Changing their slug may cause unexpected result.', 'taf' ); ?>
 			</p>
 		</div>
 		<?php
