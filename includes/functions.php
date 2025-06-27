@@ -310,62 +310,71 @@ function taf_iframe_url( $position, $args = array(), $field = 'slug' ) {
  * Validates that all context requirements for each ad position are satisfied.
  *
  * For each position's required contexts (stored as term meta),
- * the function checks whether at least one of the submitted context ids
+ * the function checks whether at least one of the post's context ids
  * in ad-content has a parent context that matches.
  *
- * @param array $tax_input Array of taxonomy inputs
- * @return bool True if a match was found for all the required contexts.
+ * @param null|int|WP_Post $post Post Object or Post ID
+ * @return WP_Error|true True if a match was found for all the required contexts.
  */
-function taf_validate_tax_input( $tax_input ) {
+function taf_validate_ad_taxonomies( $post = null ) {
+	$post = get_post( $post );
+	if ( ! $post ) {
+		return new WP_Error( 'invalid_post', __( 'Invalid post object or ID', 'taf' ) );
+	}
 
-	// Get ad context (array of term ids)
-	$ad_context = array_filter( $tax_input['ad-context'] ?? [], 'is_numeric' );
+	$errors = new WP_Error();
 
-	// Get ad position (array of term names)
-	$ad_position = array_filter(
-		array_map( 'trim', explode( ',', $tax_input['ad-position'] ?? '' ) ),
-		fn( $val ) => '' !== $val
-	);
+	$context_ids = wp_get_post_terms( $post->ID, 'ad-context', [ 'fields' => 'ids' ] );
+	$positions   = wp_get_post_terms( $post->ID, 'ad-position', [ 'fields' => 'names' ] );
 
 	// Go through every position's required contexts and look for a match.
-	foreach ( $ad_position as $pos ) {
+	foreach ( $positions as $pos ) {
 		$pos_term = get_term_by( 'name', $pos, 'ad-position' );
+		if ( ! $pos_term && is_wp_error( $pos_term ) ) {
+			continue;
+		}
 
-		if ( $pos_term && ! is_wp_error( $pos_term ) ) {
-			$req_context_slugs = get_term_meta( $pos_term->term_id, 'taf_contexts', false );
+		// Skip if position has no required contexts.
+		$req_context_slugs = get_term_meta( $pos_term->term_id, 'taf_contexts', false );
+		if ( empty( $req_context_slugs ) ) {
+			continue;
+		}
 
-			// Skip if position has no required contexts.
-			if ( empty( $req_context_slugs ) ) {
-				continue;
-			}
+		// Make sure each required context matches with the parent of at least one of the post's contexts in ad-context.
+		foreach ( $req_context_slugs as $slug ) {
+			$matched = false;
 
-			// Make sure each required context matches with the parent of at least one of the submitted contexts in ad-context.
-			foreach ( $req_context_slugs as $slug ) {
-				$matched = false;
+			foreach ( $context_ids as $context_id ) {
+				$context_term = get_term( $context_id, 'ad-context' );
 
-				foreach ( $ad_context as $context_id ) {
-					$context_term = get_term( $context_id, 'ad-context' );
+				if ( $context_term && ! is_wp_error( $context_term ) && $context_term->parent > 0 ) {
+					$parent_term = get_term( $context_term->parent, 'ad-context' );
 
-					if ( $context_term && ! is_wp_error( $context_term ) && $context_term->parent > 0 ) {
-						$parent_term = get_term( $context_term->parent, 'ad-context' );
-
-						// If match found, skip to next required context.
-						if ( $parent_term && ! is_wp_error( $parent_term ) ) {
-							if ( $parent_term->slug === $slug ) {
-								$matched = true;
-								break;
-							}
-						}
+					// If match found, skip to next required context.
+					if ( $parent_term && ! is_wp_error( $parent_term ) && $parent_term->slug === $slug ) {
+						$matched = true;
+						break;
 					}
 				}
+			}
 
-				// Return false if no matching context was found.
-				if ( ! $matched ) {
-					return false;
-				}
+			// Add error if no matching context was found.
+			if ( ! $matched ) {
+				$term             = get_term_by( 'slug', $slug, 'ad-context' );
+				$req_context_name = $term && ! is_wp_error( $term ) ? $term->name : $slug;
+
+				$errors->add(
+					'missing_context',
+					sprintf(
+						/* translators: 1: position name, 2: required context name */
+						__( 'The position "%1$s" requires you to set a context for "%2$s".', 'taf' ),
+						$pos,
+						$req_context_name
+					)
+				);
 			}
 		}
 	}
 
-	return true;
+	return $errors->has_errors() ? $errors : true;
 }

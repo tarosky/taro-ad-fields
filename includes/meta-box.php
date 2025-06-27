@@ -65,27 +65,34 @@ add_action( 'save_post', function ( $post_id, $post ) {
 
 	// Do not sanitize html because it allows javascript to output.
 	update_post_meta( $post_id, '_taf_content', $_POST['taf_content'] );
-
-	// Show notice if no context is set for positions that require it.
-	if ( ! taf_validate_tax_input( $_POST['tax_input'] ) ) {
-		set_transient( 'taf_error_notice_' . get_current_user_id(), __( 'One or more positions you\'ve selected require a context. It\'s possible this ad might not show for some of the positions selected.', 'taf' ), 30 );
-	}
 }, 10, 2 );
 
 // Show notice when no context.
 add_action( 'admin_notices', function () {
-	$user_id = get_current_user_id();
-	$message = get_transient( 'taf_error_notice_' . $user_id );
+	$screen = get_current_screen();
 
-	if ( $message ) {
-		?>
-		<div class="notice notice-info is-dismissible">
-			<p>
-				<strong><?php esc_html_e( 'Notice:', 'taf' ); ?></strong>
-				<?php echo esc_html( $message ); ?>
-			</p>
-		</div>
-		<?php
-		delete_transient( 'taf_error_notice_' . $user_id );
+	if ( isset( $screen->post_type ) && $screen->post_type === 'ad-content' && $screen->base === 'post' ) {
+		$post_id = isset( $_GET['post'] ) ? intval( $_GET['post'] ) : 0;
+		if ( ! $post_id ) {
+			return;
+		}
+
+		$validation = taf_validate_ad_taxonomies( $post_id );
+
+		if ( is_wp_error( $validation ) ) {
+			?>
+			<div class="notice notice-warning is-dismissible">
+				<p>
+					<strong><?php esc_html_e( 'Warning:', 'taf' ); ?></strong>
+					<?php echo esc_html( __( 'It\'s possible this ad might not show for some of the positions selected.', 'taf' ) ); ?>
+				</p>
+				<ul style="list-style: disc; margin-left: 16px;">
+					<?php foreach ( $validation->get_error_messages() as $msg ) : ?>
+						<li><?php echo esc_html( $msg ); ?></li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+			<?php
+		}
 	}
-});
+} );
