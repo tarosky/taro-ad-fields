@@ -71,7 +71,7 @@ add_action( 'save_post', function ( $post_id, $post ) {
 add_action( 'admin_notices', function () {
 	$screen = get_current_screen();
 
-	if ( isset( $screen->post_type ) && $screen->post_type === 'ad-content' && $screen->base === 'post' ) {
+	if ( isset( $screen->post_type ) && 'ad-content' === $screen->post_type && 'post' === $screen->base ) {
 		$post_id = isset( $_GET['post'] ) ? intval( $_GET['post'] ) : 0;
 		if ( ! $post_id ) {
 			return;
