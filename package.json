@@ -35,7 +35,7 @@
 	"devDependencies": {
 		"@wordpress/env": "^10.2.0",
 		"@wordpress/scripts": "^28.2.0",
-		"@wordpress/stylelint-config": "^22.2.0",
+		"@wordpress/stylelint-config": "^23.18.0",
 		"cssnano": "^7.0.6",
 		"npm-watch": "^0.13.0",
 		"postcss-cli": "^11.0.0"
