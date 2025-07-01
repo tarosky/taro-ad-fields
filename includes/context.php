@@ -249,7 +249,7 @@ add_action('edited_ad-position', function ( $term_id ) {
 	$valid_slugs = [];
 	foreach ( $slugs as $slug ) {
 		$term = get_term_by( 'slug', $slug, 'ad-context' );
-		if ( $term && $term->parent == 0 ) {
+		if ( $term && 0 == $term->parent ) {
 			$valid_slugs[] = $slug;
 		}
 	}
