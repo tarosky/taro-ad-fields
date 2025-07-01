@@ -130,7 +130,7 @@ add_action( 'init', function () {
 								if ( ! empty( $contexts ) && ! is_wp_error( $contexts ) ) {
 									?>
 									<p>
-										<?php esc_html_e( 'Available Contexts:', 'taf' ); ?>
+										<?php esc_html_e( 'Required Contexts:', 'taf' ); ?>
 										<?php
 										foreach ( $contexts as $context ) {
 											?>

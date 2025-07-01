@@ -188,3 +188,75 @@ function taf_register_contexts() {
 	}
 	return $registered;
 }
+
+/**
+ * Add term meta which indicates this position is for iframe.
+ *
+ */
+add_action( 'ad-position_edit_form_fields', function ( WP_Term $tag ) {
+	$saved_slugs = get_term_meta($tag->term_id, 'taf_contexts', false);
+    if (!is_array($saved_slugs)) $saved_slugs = [];
+
+	$terms = get_terms([
+        'taxonomy'   => 'ad-context',
+        'hide_empty' => false,
+        'parent'     => 0,
+    ]);
+
+	?>
+	<tr>
+		<th>
+			<label for="taf-term-context">
+				<?php esc_html_e( 'Required Contexts', 'taf' ); ?>
+			</label>
+		</th>
+		<td>
+			<?php foreach ( $terms as $term ) : ?>
+				<label style="display: inline-block; margin: 0 10px 10px 0;">
+					<input type="checkbox"
+						   name="taf-term-context[]"
+						   value="<?php echo esc_attr( $term->slug ); ?>"
+						<?php checked( in_array( $term->slug, $saved_slugs, true ) ); ?>
+					/>
+					<?php echo esc_html( $term->name ); ?>
+				</label>
+			<?php endforeach; ?>
+			<p class="description">
+				<?php esc_html_e( 'Select context categories (parents) that should be required for this position.', 'taf' ); ?>
+			</p>
+		</td>
+	</tr>
+	<?php
+}, 12 );
+
+// Save contexts termmeta
+add_action('edited_ad-position', function ($term_id) {
+	if (!isset($_POST['taf-term-context']) || !is_array($_POST['taf-term-context'])) {
+		return;
+    }
+	
+	// Skip if not the term being edited in UI
+    if (isset($_GET['tag_ID']) && intval($_GET['tag_ID']) !== intval($term_id)) {
+		return;
+    }
+
+    // Sanitize each value in the array.
+    $slugs = array_map('sanitize_text_field', $_POST['taf-term-context']);
+
+	// Make sure each slug is valid.
+    $valid_slugs = [];
+    foreach ($slugs as $slug) {
+        $term = get_term_by('slug', $slug, 'ad-context');
+        if ($term && $term->parent == 0) {
+            $valid_slugs[] = $slug;
+        }
+    }
+
+    // Delete existing values for this meta key.
+	delete_term_meta($term_id, 'taf_contexts');
+
+	// Save each each value to database.
+	foreach ($valid_slugs as $slug) {
+		add_term_meta($term_id, 'taf_contexts', $slug, false);
+	}
+});
