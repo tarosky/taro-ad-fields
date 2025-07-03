@@ -38,6 +38,81 @@ add_action( 'ad-position_edit_form_fields', function ( WP_Term $tag ) {
 }, 11 );
 
 /**
+ * Display iframe URL on edit page.
+ */
+add_action('admin_footer', function () {
+	$screen = get_current_screen();
+	if ( ! $screen || 'edit-ad-position' !== $screen->id || ! isset( $_GET['tag_ID'] ) ) {
+		return;
+	}
+
+	$term         = get_term( intval( $_GET['tag_ID'] ), 'ad-position' );
+	$display_mode = get_term_meta( $term->term_id, 'taf_display_mode', true );
+
+	$iframe_url     = get_term_link( $term );
+	$iframe_element = '<iframe src="' . $iframe_url . '" style="width:100%; height:100%; border:0;" frameborder="0" scrolling="auto" allowfullscreen></iframe>';
+
+	?>
+	<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		const container = document.createElement('div');
+		container.style.marginTop = '40px';
+
+		<?php if ( 'iframe' === $display_mode ) : ?>
+		container.innerHTML = `
+			<hr>
+			<h2><?php esc_html_e( 'Iframe URL', 'taf' ); ?></h2>
+			<p style="margin: 1em 0;" class="description"><?php esc_html_e( 'This is the iframe URL along with an example of how to use it. You can adjust the attributes (such as size or styling) to fit your specific use case.', 'taf' ); ?></p>
+			<div style="margin: 1em 0;">
+				<input type="url" style="width: 100%; box-sizing: border-box" readonly="" value="<?php echo esc_attr( $iframe_url ); ?>" onfocus="this.select()">
+			</div>
+			<div style="margin: 1em 0;">
+				<input type="url" style="width: 100%; box-sizing: border-box" readonly="" value="<?php echo esc_attr( $iframe_element ); ?>" onfocus="this.select()">
+			</div>
+		`;
+		<?php else : ?>
+		container.innerHTML = `
+			<hr>
+			<h2><?php esc_html_e( 'Iframe URL', 'taf' ); ?></h2>
+			<p style="margin: 1em 0;" class="description"><?php esc_html_e( 'The iframe URL will appear here when the Display Mode is set to "iframe". If the Display Mode is set to "Default", this message will be shown instead.', 'taf' ); ?></p>
+		`;
+		<?php endif; ?>
+
+		// Add below the form
+		const form = document.querySelector('form#edittag');
+		if (form && form.parentNode) {
+			form.parentNode.appendChild(container);
+		}
+	});
+	</script>
+	<?php
+});
+
+/**
+ * Show notice for iframe URL
+ */
+add_action( 'admin_notices', function () {
+	$screen = get_current_screen();
+	if ( ! $screen || 'edit-ad-position' !== $screen->id || ! isset( $_GET['tag_ID'] ) ) {
+		return;
+	}
+
+	$term         = get_term( intval( $_GET['tag_ID'] ), 'ad-position' );
+	$display_mode = get_term_meta( $term->term_id, 'taf_display_mode', true );
+
+	if ( 'iframe' === $display_mode ) {
+		?>
+		<div class="notice notice-info">
+			<p>
+				<strong><?php esc_html_e( 'Notice:', 'taf' ); ?></strong>
+				<?php esc_html_e( 'The iframe URL can be found at the bottom of this page.', 'taf' ); ?>
+			</p>
+		</div>
+		<?php
+	}
+} );
+
+/**
  * Save term meta
  */
 add_action( 'edit_term', function ( $term_id, $term_taxonomy_id, $taxonomy ) {
