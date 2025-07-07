@@ -23,7 +23,7 @@ add_action( 'ad-position_edit_form_fields', function ( WP_Term $tag ) {
 			<?php $current_display = get_term_meta( $tag->term_id, 'taf_display_mode', true ); ?>
 			<select name="taf-term-display" id="taf-term-display">
 				<option value="" <?php selected( $current_display, '' ); ?>>
-					<?php esc_html_e( 'Not specified', 'taf' ); ?>
+					<?php esc_html_e( 'Default', 'taf' ); ?>
 				</option>
 				<option value="iframe" <?php selected( $current_display, 'iframe' ); ?>>
 					iframe
