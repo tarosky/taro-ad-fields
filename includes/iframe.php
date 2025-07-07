@@ -40,13 +40,7 @@ add_action( 'ad-position_edit_form_fields', function ( WP_Term $tag ) {
 /**
  * Display iframe URL on edit page.
  */
-add_action('admin_footer', function () {
-	$screen = get_current_screen();
-	if ( ! $screen || 'edit-ad-position' !== $screen->id || ! isset( $_GET['tag_ID'] ) ) {
-		return;
-	}
-
-	$term         = get_term( intval( $_GET['tag_ID'] ), 'ad-position' );
+add_action('ad-position_edit_form_fields', function($term) {
 	$display_mode = get_term_meta( $term->term_id, 'taf_display_mode', true );
 
 	$iframe_url     = get_term_link( $term );
