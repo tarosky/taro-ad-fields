@@ -22,7 +22,7 @@ const { createRoot, render } = wp.element;
 /**
  * Creates a container for the iframe URL and example usage.
  *
- * @param displayMode
+ * @param {boolean} displayMode Display mode of the ad field.
  * @returns {JSX.Element}
  */
 const TafIframeContainer = ( { displayMode } ) => {
@@ -42,10 +42,10 @@ const TafIframeContainer = ( { displayMode } ) => {
 			{ displayMode && (
 				<>
 					<div style={ { margin: '1em 0' } }>
-						<input type="url" style={ { width: '100%', boxSizing: 'border-box' } } readOnly={ true } value={ data.iframeUrl } onFocus={ (event) => event.target.select() } />
+						<input type="url" style={ { width: '100%', boxSizing: 'border-box' } } readOnly={ true } value={ data.iframeUrl } onFocus={ ( event ) => event.target.select() } />
 					</div>
 					<div style={ { margin: '1em 0' } }>
-						<input type="url"  style={ { width: '100%', boxSizing: 'border-box' } } readOnly={ true } value={ data.iframeElement } onFocus={ (event) => event.target.select() } />
+						<input type="url" style={ { width: '100%', boxSizing: 'border-box' } } readOnly={ true } value={ data.iframeElement } onFocus={ ( event ) => event.target.select() } />
 					</div>
 				</>
 			) }
@@ -54,13 +54,17 @@ const TafIframeContainer = ( { displayMode } ) => {
 };
 
 // Render the iframe container when the DOM is ready.
-document.addEventListener( 'DOMContentLoaded', function () {
+document.addEventListener( 'DOMContentLoaded', function() {
 	const container = document.createElement( 'div' );
 	// Add below the form
 	const form = document.querySelector( 'form#edittag' );
 	if ( form && form.parentNode ) {
 		form.parentNode.appendChild( container );
-		const root = createRoot( container );
-		root.render( <TafIframeContainer displayMode={ data.displayMode }  /> );
+		if ( createRoot ) {
+			const root = createRoot( container );
+			root.render( <TafIframeContainer displayMode={ data.displayMode } /> );
+		} else {
+			render( <TafIframeContainer displayMode={ data.displayMode } />, container );
+		}
 	}
 } );
