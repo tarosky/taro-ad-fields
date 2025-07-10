@@ -13,6 +13,9 @@ License: GPL v3 or later.
 Version: nightly
 */
 
+// Do not load directly.
+defined( 'ABSPATH' ) || exit;
+
 add_action( 'plugins_loaded', 'taro_ad_field_init' );
 
 /**
@@ -31,6 +34,8 @@ function taro_ad_field_init() {
 			require __DIR__ . '/includes/' . $file;
 		}
 	}
+	// Register assets.
+	add_action( 'init', 'taf_register_assets' );
 	// Composer if exists.
 	if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 		require_once __DIR__ . '/vendor/autoload.php';
@@ -38,6 +43,49 @@ function taro_ad_field_init() {
 	// If this is a test environment, load test bootstrap.
 	if ( class_exists( 'Tarosky\TaroAdFieldsTest\Bootstrap' ) ) {
 		new Tarosky\TaroAdFieldsTest\Bootstrap();
+	}
+}
+
+/**
+ * Register all assets for Taro Ad Fields.
+ *
+ * @return void
+ */
+function taf_register_assets() {
+	$json = __DIR__ . '/wp-dependencies.json';
+	if ( ! file_exists( $json ) ) {
+		return;
+	}
+	$dependencies = json_decode( file_get_contents( $json ), true );
+	if ( empty( $dependencies ) || ! is_array( $dependencies ) ) {
+		return;
+	}
+	// Register styles.
+	foreach ( $dependencies as $dependency ) {
+		if ( empty( $dependency['path'] ) ) {
+			continue;
+		}
+		$url = plugins_url( $dependency['path'], __FILE__ );
+		switch ( $dependency['ext'] ) {
+			case 'js':
+				$script_info = [
+					'in_footer' => $dependency['footer'] ?? true,
+				];
+				if ( in_array( $dependency['strategy'], [ 'defer', 'async' ], true ) ) {
+					$script_info['strategy'] = $dependency['strategy'];
+				}
+				wp_register_script(
+					$dependency['handle'],
+					$url,
+					$dependency['deps'],
+					$dependency['hash'],
+					$script_info
+				);
+				break;
+			case 'css':
+				wp_register_style( $dependency['handle'], $url, $dependency['deps'], $dependency['hash'], $dependency['media'] );
+				break;
+		}
 	}
 }
 
