@@ -36,7 +36,7 @@
 		"@wordpress/env": "^10.2.0",
 		"@wordpress/scripts": "^28.2.0",
 		"@wordpress/stylelint-config": "^22.2.0",
-		"cssnano": "^7.0.6",
+		"cssnano": "^7.1.0",
 		"npm-watch": "^0.13.0",
 		"postcss-cli": "^11.0.0"
 	},
