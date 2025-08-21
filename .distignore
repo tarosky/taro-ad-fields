@@ -20,5 +20,6 @@ webpack.config.js
 wordpress
 bin
 tests
+doc
 taro-series.php.bak
 readme.txt.bak
