@@ -75,7 +75,7 @@ function taf_context_meta_box_callback( $post ) {
 			printf( '<p class="description">%s</p>', nl2br( esc_html( $parent->description ) ) );
 		}
 		// Allow selecting no context by adding a hidden input field.
-		echo '<input type="hidden" name="tax_input[ad-context][]" value="" />';
+		printf( '<input type="hidden" name="tax_input[ad-context][]" value="%s" />', esc_attr( '' ) );
 		foreach ( $children as $child ) {
 			printf(
 				'<p class="ad-context__item"><label><input type="checkbox" name="tax_input[%s][]" value="%d" %s /> %s</label></p>',
