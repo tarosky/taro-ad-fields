@@ -1,7 +1,7 @@
 # Taro Ad Fields
 
 Tags: advertisement  
-Contributors: tarosky, Takahashi_Fumiki, yocchi161  
+Contributors: tarosky, Takahashi_Fumiki, yocchi161, tswallie  
 Tested up to: 6.8  
 Stable tag: nightly  
 License: GPLv3 or later  
