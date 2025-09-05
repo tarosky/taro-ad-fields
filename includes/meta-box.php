@@ -55,6 +55,37 @@ add_action( 'save_post', function ( $post_id, $post ) {
 	if ( ! isset( $_POST['_tafnonce'] ) || ! wp_verify_nonce( $_POST['_tafnonce'], 'taf_meta' ) ) {
 		return;
 	}
+
 	// Do not sanitize html because it allows javascript to output.
 	update_post_meta( $post_id, '_taf_content', $_POST['taf_content'] );
 }, 10, 2 );
+
+// Show notice when no context.
+add_action( 'admin_notices', function () {
+	$screen = get_current_screen();
+
+	if ( isset( $screen->post_type ) && 'ad-content' === $screen->post_type && 'post' === $screen->base ) {
+		$post_id = isset( $_GET['post'] ) ? intval( $_GET['post'] ) : 0;
+		if ( ! $post_id ) {
+			return;
+		}
+
+		$validation = taf_validate_ad_taxonomies( $post_id );
+
+		if ( is_wp_error( $validation ) ) {
+			?>
+			<div class="notice notice-warning is-dismissible">
+				<p>
+					<strong><?php esc_html_e( 'Warning:', 'taf' ); ?></strong>
+					<?php echo esc_html( __( 'It\'s possible this ad might not show for some of the positions selected.', 'taf' ) ); ?>
+				</p>
+				<ul style="list-style: disc; margin-left: 16px;">
+					<?php foreach ( $validation->get_error_messages() as $msg ) : ?>
+						<li><?php echo esc_html( $msg ); ?></li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+			<?php
+		}
+	}
+} );

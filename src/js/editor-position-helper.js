@@ -23,9 +23,9 @@ $( document ).ready( function() {
 			// check if Position exists that requires Context and is checked.
 			$( '.adPosition__item' ).each( function() {
 				if (
-					$( this ).find( '.button' ).text().trim() === $parent &&
-					$( this ).find( '.adPosition__check' ).is( ':checked' )
-				) {
+					$(this).find('.button').filter((_, el) => $(el).text().trim() === $parent).length > 0 &&
+					$(this).find('.adPosition__check').is(':checked')
+				){
 					found = true;
 					return false;
 				}

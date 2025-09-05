@@ -85,7 +85,7 @@ add_action( 'init', function () {
 								if ( ! empty( $contexts ) && ! is_wp_error( $contexts ) ) {
 									?>
 									<p>
-										<?php esc_html_e( 'Available Contexts:', 'taf' ); ?>
+										<?php esc_html_e( 'Required Contexts:', 'taf' ); ?>
 										<?php
 										foreach ( $contexts as $context ) {
 											?>
@@ -124,7 +124,7 @@ add_action( 'admin_notices', function () {
 		<div class="notice notice-info">
 			<p>
 				<strong><?php esc_html_e( 'Notice:', 'taf' ); ?></strong>
-				<?php esc_html_e( 'Default positions are registered from theme or plugin. Changing them may cause unexpected result.', 'taf' ); ?>
+				<?php esc_html_e( 'Default positions are registered from theme or plugin. Changing their slug may cause unexpected result.', 'taf' ); ?>
 			</p>
 		</div>
 		<?php
