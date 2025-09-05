@@ -23,7 +23,7 @@ add_action( 'ad-position_edit_form_fields', function ( WP_Term $tag ) {
 			<?php $current_display = get_term_meta( $tag->term_id, 'taf_display_mode', true ); ?>
 			<select name="taf-term-display" id="taf-term-display">
 				<option value="" <?php selected( $current_display, '' ); ?>>
-					<?php esc_html_e( 'Not specified', 'taf' ); ?>
+					<?php esc_html_e( 'Default', 'taf' ); ?>
 				</option>
 				<option value="iframe" <?php selected( $current_display, 'iframe' ); ?>>
 					iframe
@@ -36,6 +36,47 @@ add_action( 'ad-position_edit_form_fields', function ( WP_Term $tag ) {
 	</tr>
 	<?php
 }, 11 );
+
+/**
+ * Display iframe URL on edit page.
+ */
+add_action('ad-position_edit_form_fields', function ( $term ) {
+	$display_mode = get_term_meta( $term->term_id, 'taf_display_mode', true );
+
+	$iframe_url     = get_term_link( $term );
+	$iframe_element = '<iframe src="' . $iframe_url . '" style="width:100%; height:100%; border:0;" frameborder="0" scrolling="auto" allowfullscreen></iframe>';
+	wp_enqueue_script( 'taf-form-position-helper' );
+	wp_set_script_translations( 'taf-form-position-helper', 'taf' );
+	wp_localize_script( 'taf-form-position-helper', 'TafIframeData', [
+		'iframeUrl'     => $iframe_url,
+		'iframeElement' => $iframe_element,
+		'displayMode'   => (bool) $display_mode,
+	] );
+});
+
+/**
+ * Show notice for iframe URL
+ */
+add_action( 'admin_notices', function () {
+	$screen = get_current_screen();
+	if ( ! $screen || 'edit-ad-position' !== $screen->id || ! isset( $_GET['tag_ID'] ) ) {
+		return;
+	}
+
+	$term         = get_term( intval( $_GET['tag_ID'] ), 'ad-position' );
+	$display_mode = get_term_meta( $term->term_id, 'taf_display_mode', true );
+
+	if ( 'iframe' === $display_mode ) {
+		?>
+		<div class="notice notice-info">
+			<p>
+				<strong><?php esc_html_e( 'Notice:', 'taf' ); ?></strong>
+				<?php esc_html_e( 'The iframe URL can be found at the bottom of this page.', 'taf' ); ?>
+			</p>
+		</div>
+		<?php
+	}
+} );
 
 /**
  * Save term meta
@@ -61,8 +102,8 @@ add_action( 'pre_get_posts', function ( WP_Query &$wp_query ) {
 			return;
 		}
 		do_action( 'taf_before_render' );
+		echo '<!doctype html>';
 		?>
-		<!doctype html>
 		<html lang="<?php language_attributes(); ?>">
 		<head>
 			<meta charset="<?php bloginfo( 'charset' ); ?>">
