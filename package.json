@@ -38,7 +38,7 @@
 	"homepage": "",
 	"devDependencies": {
 		"@kunoichi/grab-deps": "^2.0.2",
-		"@wordpress/env": "^10.2.0",
+		"@wordpress/env": "^10.30.0",
 		"@wordpress/scripts": "^27.9.0",
 		"@wordpress/stylelint-config": "^22.2.0",
 		"cssnano": "^7.0.6",
