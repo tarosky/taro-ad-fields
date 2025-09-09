@@ -14,11 +14,15 @@
 		"env": "wp-env",
 		"cli": "wp-env run cli wp",
 		"cli:test": "wp-env run tests-cli wp",
-		"package": "npm run build:css",
-		"build:css": "sass ./src/scss/:./assets/css/ && postcss ./assets/css/**/*.css --replace",
-		"lint:css": "wp-scripts lint-style ./src/**/*.scss",
-		"lint": "npm run lint:css",
+		"dump": "grab-deps dump assets",
+		"build": "npm run build:js && npm run build:css && npm run dump",
+		"build:js": "grab-deps js src/js assets/js",
+		"build:css": "sass ./src/scss/:./assets/css/ --style=compressed && postcss ./assets/css/**/*.css --replace",
+		"lint:css": "wp-scripts lint-style './src/scss/**/*.scss'",
+		"lint:js": "wp-scripts lint-js './src/js/**/*.js'",
+		"lint": "npm run lint:css && npm run lint:js",
 		"format:css": "stylelint \"src/scss/**/*.scss\" --fix",
+		"format:js": "eslint --fix 'src/js/**/*.js'",
 		"watch": "npm-watch"
 	},
 	"repository": {
@@ -33,8 +37,9 @@
 	},
 	"homepage": "",
 	"devDependencies": {
+		"@kunoichi/grab-deps": "^2.0.2",
 		"@wordpress/env": "^10.2.0",
-		"@wordpress/scripts": "^28.2.0",
+		"@wordpress/scripts": "^27.9.0",
 		"@wordpress/stylelint-config": "^22.2.0",
 		"cssnano": "^7.0.6",
 		"npm-watch": "^0.13.0",
@@ -44,6 +49,18 @@
 		"node": "18.20.3"
 	},
 	"watch": {
+		"build:js": {
+			"extensions": "js",
+			"patterns": [
+				"src/js"
+			]
+		},
+		"lint:js": {
+			"extensions": "js",
+			"patterns": [
+				"src/js"
+			]
+		},
 		"build:css": {
 			"extensions": "scss",
 			"patterns": [
@@ -54,6 +71,13 @@
 			"extensions": "scss",
 			"patterns": [
 				"src/scss"
+			]
+		},
+		"dump": {
+			"extensions": "js,css",
+			"patterns": [
+				"assets/js",
+				"assets/css"
 			]
 		}
 	}

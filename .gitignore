@@ -5,3 +5,4 @@
 composer.lock
 /doc/
 *.cache
+wp-dependencies.json
