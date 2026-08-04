@@ -2,7 +2,7 @@
 
 Tags: advertisement  
 Contributors: tarosky, Takahashi_Fumiki, yocchi161, tswallie  
-Tested up to: 6.8  
+Tested up to: 7.0  
 Stable tag: nightly  
 License: GPLv3 or later  
 License URI: http://www.gnu.org/licenses/gpl-3.0.txt
