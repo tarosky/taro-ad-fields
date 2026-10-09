@@ -66,6 +66,8 @@ function taf_register_assets() {
 			continue;
 		}
 		$url = plugins_url( $dependency['path'], __FILE__ );
+		// Drop empty handles (grab-deps may emit "" when asset.php has no dependencies).
+		$deps = array_values( array_filter( (array) $dependency['deps'] ) );
 		switch ( $dependency['ext'] ) {
 			case 'js':
 				$script_info = [
@@ -77,13 +79,13 @@ function taf_register_assets() {
 				wp_register_script(
 					$dependency['handle'],
 					$url,
-					$dependency['deps'],
+					$deps,
 					$dependency['hash'],
 					$script_info
 				);
 				break;
 			case 'css':
-				wp_register_style( $dependency['handle'], $url, $dependency['deps'], $dependency['hash'], $dependency['media'] );
+				wp_register_style( $dependency['handle'], $url, $deps, $dependency['hash'], $dependency['media'] );
 				break;
 		}
 	}

@@ -5,6 +5,7 @@
 .git
 .github
 .gitignore
+.husky
 .node-version
 .stylelintrc.json
 .wordpress-org
@@ -14,7 +15,6 @@ composer.lock
 package-lock.json
 phpcs.ruleset.xml
 phpunit.xml.dist
-postcss.config.js
 README.md
 webpack.config.js
 wordpress
