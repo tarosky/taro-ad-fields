@@ -15,7 +15,8 @@
 		"cli": "wp-env run cli wp",
 		"cli:test": "wp-env run tests-cli wp",
 		"dump": "grab-deps dump assets",
-		"build": "npm run build:js && npm run build:css && npm run dump",
+		"package": "npm run build:js && npm run build:css && npm run dump",
+		"build": "npm run package",
 		"build:js": "grab-deps js src/js assets/js",
 		"build:css": "sass ./src/scss/:./assets/css/ --style=compressed && postcss ./assets/css/**/*.css --replace",
 		"lint:css": "wp-scripts lint-style './src/scss/**/*.scss'",
@@ -44,9 +45,6 @@
 		"cssnano": "^7.0.6",
 		"npm-watch": "^0.13.0",
 		"postcss-cli": "^11.0.0"
-	},
-	"volta": {
-		"node": "18.20.3"
 	},
 	"watch": {
 		"build:js": {
@@ -80,5 +78,8 @@
 				"assets/css"
 			]
 		}
+	},
+	"engines": {
+		"node": ">=22.0"
 	}
 }

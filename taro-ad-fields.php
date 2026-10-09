@@ -5,7 +5,7 @@ Plugin URI: https://wordpress.org/plugin/taro-ad-fields
 Description: Add ad blocks for advertisement.
 Author: Tarosky INC.
 Author URI: https://tarosky.co.jp
-Requires at least: 5.9
+Requires at least: 6.6
 Requires PHP: 7.4
 Text Domain: taf
 Domain Path: /languages/
