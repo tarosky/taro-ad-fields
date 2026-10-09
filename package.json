@@ -1,12 +1,12 @@
 {
 	"name": "taro-ad-fields",
 	"version": "1.0.0",
-	"description": "Gulp task for Taro Ad Fields",
-	"main": "index.js",
+	"description": "Advertise block manager for WordPress.",
 	"directories": {
 		"test": "tests"
 	},
 	"scripts": {
+		"prepare": "husky",
 		"test": "RESULT=${PWD##*/} && wp-env run tests-cli ./wp-content/plugins/$RESULT/vendor/bin/phpunit -c ./wp-content/plugins/$RESULT/phpunit.xml.dist",
 		"start": "wp-env start",
 		"update": "wp-env start --update",
@@ -18,7 +18,7 @@
 		"package": "npm run build:js && npm run build:css && npm run dump",
 		"build": "npm run package",
 		"build:js": "grab-deps js src/js assets/js",
-		"build:css": "sass ./src/scss/:./assets/css/ --style=compressed && postcss ./assets/css/**/*.css --replace",
+		"build:css": "sass ./src/scss/:./assets/css/ --style=compressed && postcss ./assets/css/**/*.css --use autoprefixer --replace",
 		"lint:css": "wp-scripts lint-style './src/scss/**/*.scss'",
 		"lint:js": "wp-scripts lint-js './src/js/**/*.js'",
 		"lint": "npm run lint:css && npm run lint:js",
@@ -32,19 +32,27 @@
 	},
 	"keywords": [],
 	"author": "",
-	"license": "GPL-3.0",
+	"license": "GPL-3.0-or-later",
 	"bugs": {
 		"url": ""
 	},
 	"homepage": "",
 	"devDependencies": {
-		"@kunoichi/grab-deps": "^2.0.2",
-		"@wordpress/env": "^10.2.0",
-		"@wordpress/scripts": "^27.9.0",
-		"@wordpress/stylelint-config": "^22.2.0",
-		"cssnano": "^7.0.6",
+		"@kunoichi/grab-deps": "^3.0.0",
+		"@wordpress/env": "^10.0",
+		"@wordpress/scripts": "^31.0.0",
+		"autoprefixer": "^10.4.16",
+		"husky": "^9.1.7",
+		"lint-staged": "^16.2.7",
 		"npm-watch": "^0.13.0",
-		"postcss-cli": "^11.0.0"
+		"postcss": "^8.4.33",
+		"postcss-cli": "^11.0.0",
+		"sass": "^1.69.7"
+	},
+	"lint-staged": {
+		"*.js": "npm run lint:js",
+		"*.scss": "npm run lint:css",
+		"*.php": "composer lint"
 	},
 	"watch": {
 		"build:js": {
