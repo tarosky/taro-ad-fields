@@ -5,7 +5,9 @@ Contributors: tarosky, Takahashi_Fumiki, yocchi161, tswallie
 Tested up to: 6.8  
 Stable tag: nightly  
 License: GPLv3 or later  
-License URI: http://www.gnu.org/licenses/gpl-3.0.txt
+License URI: http://www.gnu.org/licenses/gpl-3.0.txt  
+Requires at least: 6.6  
+Requires PHP: 7.4
 
 Advertise block manager for WordPress.
 
