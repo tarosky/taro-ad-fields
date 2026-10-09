@@ -1,0 +1,139 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to function is_wp_error\(\) with WP_Term will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: includes/TafWidget.php
+
+		-
+			message: '#^Constructor of class TafWidget has an unused parameter \$control_options\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: includes/TafWidget.php
+
+		-
+			message: '#^Constructor of class TafWidget has an unused parameter \$id_base\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: includes/TafWidget.php
+
+		-
+			message: '#^Constructor of class TafWidget has an unused parameter \$name\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: includes/TafWidget.php
+
+		-
+			message: '#^Constructor of class TafWidget has an unused parameter \$widget_options\.$#'
+			identifier: constructor.unusedParameter
+			count: 1
+			path: includes/TafWidget.php
+
+		-
+			message: '#^Call to function is_wp_error\(\) with array\<WP_Term\> will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: includes/context.php
+
+		-
+			message: '#^Offset ''group'' does not exist on string\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: includes/context.php
+
+		-
+			message: '#^Offset ''name'' does not exist on string\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: includes/context.php
+
+		-
+			message: '#^Parameter \#1 \$args of function get_terms expects array\{taxonomy\?\: array\<string\>\|string, object_ids\?\: array\<int\>\|int, orderby\?\: string, order\?\: string, hide_empty\?\: bool\|int, include\?\: array\<int\>\|string, exclude\?\: array\<int\>\|string, exclude_tree\?\: array\<int\>\|string, \.\.\.\}, ''ad\-context'' given\.$#'
+			identifier: argument.type
+			count: 2
+			path: includes/context.php
+
+		-
+			message: '#^Parameter \#1 \$text of function esc_attr expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/context.php
+
+		-
+			message: '#^Parameter \#2 \$deprecated of function get_terms expects '''', array\{hide_empty\: false, parent\: 0\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/context.php
+
+		-
+			message: '#^Parameter \#2 \$deprecated of function get_terms expects '''', array\{hide_empty\: false, parent\: int\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/context.php
+
+		-
+			message: '#^Call to function is_wp_error\(\) with WP_Term will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 5
+			path: includes/functions.php
+
+		-
+			message: '#^Call to function is_wp_error\(\) with WP_Term\|false will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 2
+			path: includes/functions.php
+
+		-
+			message: '#^Call to function is_wp_error\(\) with false will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: includes/functions.php
+
+		-
+			message: '#^Function taf_default_context_group\(\) should return array\<string, array\{name\: string, slug\: string, description\: string\}\> but returns array\<string, array\{name\: string, description\: string\}\>\.$#'
+			identifier: return.type
+			count: 1
+			path: includes/functions.php
+
+		-
+			message: '#^Function taf_iframe_url\(\) never returns WP_Error so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: includes/functions.php
+
+		-
+			message: '#^Call to function is_wp_error\(\) with WP_Term will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: includes/iframe.php
+
+		-
+			message: '#^Call to function is_wp_error\(\) with WP_Term will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: includes/post_type.php
+
+		-
+			message: '#^Call to function is_wp_error\(\) with array\<WP_Term\> will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: includes/post_type.php
+
+		-
+			message: '#^Call to function is_wp_error\(\) with non\-empty\-array\<WP_Term\> will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: includes/post_type.php
+
+		-
+			message: '#^Parameter \#1 \$args of function get_terms expects array\{taxonomy\?\: array\<string\>\|string, object_ids\?\: array\<int\>\|int, orderby\?\: string, order\?\: string, hide_empty\?\: bool\|int, include\?\: array\<int\>\|string, exclude\?\: array\<int\>\|string, exclude_tree\?\: array\<int\>\|string, \.\.\.\}, ''ad\-position'' given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/post_type.php
+
+		-
+			message: '#^Parameter \#2 \$deprecated of function get_terms expects '''', array\{hide_empty\: false\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: includes/post_type.php

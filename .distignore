@@ -24,3 +24,5 @@ doc
 taro-series.php.bak
 readme.txt.bak
 .claude
+phpstan.neon
+phpstan-baseline.neon
